@@ -32,10 +32,10 @@ void EndBattle()
 }
 
 // Used to return a bool which decides if attacks miss or not in attack functions
-bool MissChance(int min, int max, int missNumber)
+bool MissChance(int accuracy)
 {
-    int rng = RandomNumber(min, max);
-    if (rng == missNumber)
+    int rng = RandomNumber(1,100);
+    if (rng > accuracy)
     {
         return true;
     }
@@ -43,56 +43,36 @@ bool MissChance(int min, int max, int missNumber)
         return false;
 }
 
-
 //----------------//
 // Battle Actions //
 //----------------//
 
-// Basic attack which deals low damage & doesn't cost MP
-void Attack(const string& user, int& HPTarget)
+
+void Attack(const string& attackName, const string& user, int& hpTarget, int hpDamageMin, int hpDamageMax, int mpCost, int& mpSource, int accuracy)
 {
-    if (MissChance(1,10,6))
+    if (mpSource < mpCost)
+        cout << user << " doesn't have enough MP to use " << attackName << "!" << endl << endl;
+    else if (MissChance(accuracy))
     {
-        cout << user << " missed!" << endl << endl;
+        mpSource -= mpCost;
+        cout << user << " used " << attackName << "... but missed!" << endl << endl;
     }
     else
     {
-        int damage = RandomNumber(5, 10);
-        HPTarget -= damage;
-        cout << user << " attack dealt " << damage << " HP!" << endl << endl;
-        if (HPTarget <= 0)
-            EndBattle();
-    }
-
-}
-
-// Stronger attack which deals higher damage at the cost of some MP
-void Magic(const string& user, int& HPTarget, int& MPSource) // Perform a stronger attack at the cost of MP
-{
-    if (MPSource < 10)
-    {
-        cout << user << " doesn't have enough MP to cast a spell!" << endl << endl;
-    }
-
-    else if (MissChance(1, 5, 3))
-    {
-        cout << user << " missed!" << endl << endl;
-    }
-    else
-    {
-        int damage = RandomNumber(12, 22);
-        HPTarget -= damage;
-        MPSource -= 10;
-        cout << user << " magic attack dealt " << damage << " HP!" << endl << endl;
-        if (HPTarget <= 0)
+        mpSource -= mpCost;
+        int damage = RandomNumber(hpDamageMin, hpDamageMax);
+        hpTarget -= damage;
+        cout << user << " used " << attackName << " and dealt " << damage << " damage!" << endl << endl;
+        if (hpTarget <= 0)
             EndBattle();
     }
 }
+
 
 // Healing lets the user recover HP at the cost of some MP
 void Heal(const string& user, int& HPTarget, int& MPSource) // Heal HP at the cost of MP
 {
-    if (MPSource < 20)
+    if (MPSource < 10)
     {
         cout << user << " doesn't have enough MP to heal!" << endl << endl;
     }
@@ -102,13 +82,13 @@ void Heal(const string& user, int& HPTarget, int& MPSource) // Heal HP at the co
     }
     else
     {
-        int amount = RandomNumber(10, 20);
+        int amount = RandomNumber(25, 35);
         HPTarget += amount;
         if (HPTarget > 100)
         {
             HPTarget = 100;
         }
-        MPSource -= 20;
+        MPSource -= 10;
         cout << user << " healed " << amount << " HP!" << endl << endl;
     }
 }
@@ -119,12 +99,35 @@ void Heal(const string& user, int& HPTarget, int& MPSource) // Heal HP at the co
 //-----------------------//
 void EnemyTurn()
 {
-    switch (int enemyAction = RandomNumber(1, 3))
+    int enemyActions[] = {1,2,3};
+
+    // Enemy avoids magic if they don't have enough MP
+    if (enemyMP < 10)
+        enemyActions[2] = 0;
+    if (enemyMP < 15)
+        enemyActions[1] = 0;
+
+    // Enemy avoids healing if they have high HP
+    if (enemyHP > 80)
+        enemyActions[2] = 0;
+
+    // Selects a random non-disabled action
+    int enemyAction = 0;
+    while (enemyAction == 0)
     {
-        case 1: Attack("Enemy", playerHP);
+        int rng = enemyActions[RandomNumber(0,2)];
+        if (rng != 0)
+        {
+            enemyAction = rng;
+            break;
+        }
+    }
+    switch (enemyAction)
+    {
+        case 1: Attack("Bite", "Enemy", playerHP, 8, 18, 0, enemyMP, 80);
         break;
 
-        case 2: Magic("Enemy", playerHP, enemyMP);
+        case 2: Attack("Magic", "Enemy", playerHP, 20, 30, 15, enemyMP, 60);
         break;
 
         case 3: Heal("Enemy", enemyHP, enemyMP);
@@ -155,8 +158,8 @@ void BattleMenu()
 
     // Battle Options
     cout << "1. Attack" << endl;
-    cout << "2. Magic (Cost: 10MP)" << endl;
-    cout << "3. Heal (Cost: 20MP)" << endl;
+    cout << "2. Magic (Cost: 15MP)" << endl;
+    cout << "3. Heal (Cost: 10MP)" << endl;
     cout << "Your choice: ";
 
     int action;
@@ -170,15 +173,15 @@ void BattleMenu()
         // Player's turn
         switch (action)
         {
-            case 1:
-            Attack("Player", enemyHP);
+            case 1: // Basic Attack
+            Attack("Punch", "Player", enemyHP, 5, 12, 0, playerMP, 80);
             break;
 
-            case 2:
-            Magic("Player", enemyHP, playerMP);
+            case 2: // Magic Attack
+            Attack("Magic", "Player", enemyHP, 15, 24, 15, playerMP, 60);
             break;
 
-            case 3:
+            case 3: // Healing
             Heal("Player", playerHP, playerMP);
             break;
 
