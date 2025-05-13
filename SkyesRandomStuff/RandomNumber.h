@@ -7,7 +7,7 @@
 
 namespace srs
 {
-    int RandomNumber(int min, int max, int loadTime = 1);
+    int RandomNumber(int min, int max, int loadTime = 0);
 }
 
 #endif //RANDOMNUMBER_H

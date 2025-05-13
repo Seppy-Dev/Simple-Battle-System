@@ -1,7 +1,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include "SkyesRandomStuff/RandomNumber.cpp"
+#include "SkyesRandomStuff/RandomNumber.h"
 
 using namespace std;
 using namespace srs;
@@ -186,12 +186,13 @@ void BattleMenu()
             cout << "Invalid Action!" << endl;
             continue;
         }
-        this_thread::sleep_for(chrono::seconds(1));
         if (playerHP <= 0 || enemyHP <= 0)
         {
             EndBattle();
             break;
         }
+
+        this_thread::sleep_for(chrono::seconds(1));
 
         // Enemy's turn
         EnemyTurn();
