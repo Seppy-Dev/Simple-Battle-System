@@ -150,7 +150,7 @@ void EnemyTurn()
         case 1: Attack(enemyAttackText, size(enemyAttackText), "ENEMY", playerHP, 5, 12, 0, enemyMP, 85);
             break;
 
-        case 2: Attack("Magic", "Enemy", playerHP, 15, 20, 15, enemyMP, 75);
+        case 2: Attack(enemyMagicText, size(enemyMagicText),"ENEMY", playerHP, 15, 20, 15, enemyMP, 75);
             break;
 
         case 3: Heal("Enemy", enemyHP, enemyMP, 15, 25);
