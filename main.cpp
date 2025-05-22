@@ -187,7 +187,7 @@ void BattleMenu()
     cout << "1. Attack" << endl;
     cout << "2. Magic (Cost: 15MP)" << endl;
     cout << "3. Heal (Cost: 20MP)" << endl;
-    cout << "4. Meditate" << endl;
+    cout << "4. Meditate" << endl << endl;
     cout << "Your choice: ";
 
     int action;
