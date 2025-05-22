@@ -201,7 +201,7 @@ void BattleMenu()
         switch (action)
         {
             case 1: // Basic Attack
-            Attack("Punch", "Player", enemyHP, 5, 12, 0, playerMP, 90);
+            Attack(playerAttackText, size(playerAttackText), "YOU", enemyHP, 5, 12, 0, playerMP, 90);
                 break;
 
             case 2: // Magic Attack
