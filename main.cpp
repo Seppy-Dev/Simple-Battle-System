@@ -176,7 +176,8 @@ void BattleMenu()
     // Player stats
     cout << "YOU" << endl;
     cout << "HP: " << playerHP << endl;
-    cout << "MP: " << playerMP << endl << endl;
+    cout << "MP: " << playerMP << endl;
+    cout << "----------" << endl << endl;
 
     // Enemy Stats
     cout << "----------" << endl;
