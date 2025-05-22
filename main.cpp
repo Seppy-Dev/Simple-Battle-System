@@ -205,7 +205,7 @@ void BattleMenu()
                 break;
 
             case 2: // Magic Attack
-            Attack("Magic", "Player", enemyHP, 15, 20, 15, playerMP, 70);
+            Attack(enemyMagicText, size(playerMagicText),"YOU", enemyHP, 15, 20, 15, playerMP, 70);
                 break;
 
             case 3: // Healing
