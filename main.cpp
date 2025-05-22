@@ -223,6 +223,24 @@ void BattleMenu()
             Meditate("YOU", playerMP, 10, 20);
                 break;
 
+            case 69420: // Secret amazing attack
+                cout << "YOU used LIGHT THAT BURNS MY EYES!" << endl;
+                this_thread::sleep_for(chrono::seconds(2));
+                cout << ".";
+                this_thread::sleep_for(chrono::seconds(1));
+                cout << ".";
+                this_thread::sleep_for(chrono::seconds(1));
+                cout << ".";
+                this_thread::sleep_for(chrono::seconds(1));
+                cout << "!";
+                this_thread::sleep_for(chrono::seconds(1));
+                for (int i = 0; i < 100; i++) {
+                    cout << endl;
+                    for (int j = 0; j < 100; j++)
+                        cout << "#####";
+                }
+                    exit(-1);
+
 
             default:
             cout << "Invalid Action!" << endl;
