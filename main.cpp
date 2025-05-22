@@ -14,6 +14,12 @@ int enemyHP = 100;
 int enemyMP = 100;
 bool battleActive = true;
 
+// Flavour text for certain attacks
+string enemyAttackText[] = {"BITE", "SCRATCH"};
+string enemyMagicText[] = {"FIREBALL", "DARK MAGIC", "LIGHTNING"};
+string playerAttackText[] = {"PUNCH", "KICK"};
+string playerMagicText[] = {"FIREBALL", "LIGHT MAGIC", "LIGHTNING"};
+
 //------------------------//
 // Basic Battle Functions //
 //------------------------//
