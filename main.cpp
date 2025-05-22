@@ -181,7 +181,10 @@ void BattleMenu()
     // Enemy Stats
     cout << "ENEMY" << endl;
     cout << "HP: " << enemyHP << endl;
-    cout << "MP: " << enemyMP << endl << endl;
+    cout << "MP: " << enemyMP << endl;
+    cout << "----------" << endl << endl;
+
+    this_thread::sleep_for(chrono::seconds(1));
 
     // Battle Options
     cout << "1. Attack" << endl;
