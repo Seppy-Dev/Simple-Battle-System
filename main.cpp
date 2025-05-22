@@ -174,6 +174,7 @@ void BattleMenu()
     while (battleActive) // Main game loop
     {
     // Player stats
+    cout << "----------" << endl;
     cout << "YOU" << endl;
     cout << "HP: " << playerHP << endl;
     cout << "MP: " << playerMP << endl;
