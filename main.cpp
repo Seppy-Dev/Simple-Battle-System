@@ -53,6 +53,8 @@ bool MissChance(int accuracy)
 // Basic attack calculator, inputs can be customised to create any simple attack
 void Attack(const string attackText[], int attackTextRange, const string& user, int& hpTarget, int hpDamageMin, int hpDamageMax, int mpCost, int& mpSource, int accuracy)
 {
+    string attackName = attackText[RandomNumber(0, attackTextRange - 1)];
+
     if (mpSource < mpCost)
         cout << user << " doesn't have enough MP to use " << attackName << "!" << endl << endl;
     else if (MissChance(accuracy))
