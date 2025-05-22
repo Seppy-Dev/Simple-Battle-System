@@ -157,7 +157,7 @@ void EnemyTurn()
         case 3: Heal("ENEMY", enemyHP, enemyMP, 15, 25);
             break;
 
-        case 4: Meditate("Enemy", enemyMP, 5, 15);
+        case 4: Meditate("ENEMY", enemyMP, 5, 15);
             break;
 
         default:
