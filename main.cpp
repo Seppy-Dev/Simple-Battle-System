@@ -7,18 +7,16 @@ using namespace std;
 using namespace srs;
 
 // Silly goofy global variables
-// These shud probs be a class/struct or smth but idrk how to do that properly in C++ yet
+// These shud probs be a class/struct or smth but idrk how to do that properly in C++ yet (sob)
 int playerHP = 100;
 int playerMP = 100;
 int enemyHP = 100;
 int enemyMP = 100;
 bool battleActive = true;
 
-
 //------------------------//
 // Basic Battle Functions //
 //------------------------//
-
 // Cause the battle to cease and provide a message depending on the victor
 void EndBattle()
 {
@@ -46,8 +44,7 @@ bool MissChance(int accuracy)
 //----------------//
 // Battle Actions //
 //----------------//
-
-
+// Basic attack calculator, inputs can be customised to create any simple attack
 void Attack(const string& attackName, const string& user, int& hpTarget, int hpDamageMin, int hpDamageMax, int mpCost, int& mpSource, int accuracy)
 {
     if (mpSource < mpCost)
@@ -70,9 +67,9 @@ void Attack(const string& attackName, const string& user, int& hpTarget, int hpD
 
 
 // Healing lets the user recover HP at the cost of some MP
-void Heal(const string& user, int& HPTarget, int& MPSource) // Heal HP at the cost of MP
+void Heal(const string& user, int& HPTarget, int& MPSource, int min, int max)
 {
-    if (MPSource < 10)
+    if (MPSource < 20)
     {
         cout << user << " doesn't have enough MP to heal!" << endl << endl;
     }
@@ -82,16 +79,30 @@ void Heal(const string& user, int& HPTarget, int& MPSource) // Heal HP at the co
     }
     else
     {
-        int amount = RandomNumber(25, 35);
+        int amount = RandomNumber(min, max);
         HPTarget += amount;
         if (HPTarget > 100)
-        {
             HPTarget = 100;
-        }
-        MPSource -= 10;
+        MPSource -= 20;
         cout << user << " healed " << amount << " HP!" << endl << endl;
     }
 }
+
+// Meditating lets the user recover some MP
+void Meditate(const string& user, int& MPTarget, int min, int max)
+{
+    if (MPTarget == 100)
+        cout << user << "'s MP is already full!" << endl << endl;
+    else
+    {
+        int amount = RandomNumber(min, max);
+        MPTarget += amount;
+        if (MPTarget > 100)
+            MPTarget = 100;
+        cout << user << " recovered " << amount << " MP!" << endl << endl;
+    }
+}
+
 
 
 //-----------------------//
@@ -99,39 +110,46 @@ void Heal(const string& user, int& HPTarget, int& MPSource) // Heal HP at the co
 //-----------------------//
 void EnemyTurn()
 {
-    int enemyActions[] = {1,2,3};
+    int enemyActions[] = {1,2,3,4};
 
     // Enemy avoids magic if they don't have enough MP
     if (enemyMP < 10)
         enemyActions[2] = 0;
-    if (enemyMP < 15)
+    if (enemyMP < 20)
         enemyActions[1] = 0;
 
-    // Enemy avoids healing if they have high HP
-    if (enemyHP > 80)
+    // Avoids healing if high HP
+    if (enemyHP > 70)
         enemyActions[2] = 0;
 
-    // Selects a random non-disabled action
+    // Avoids meditating if high MP
+    if (enemyMP > 20)
+        enemyActions[3] = 0;
+
+    // Selects a random non-disabled action by looping the value of enemyAction to the value of the chosen action until it reaches a non-zero value
     int enemyAction = 0;
     while (enemyAction == 0)
     {
-        int rng = enemyActions[RandomNumber(0,2)];
+        int rng = enemyActions[RandomNumber(0,(size(enemyActions) - 1))];
         if (rng != 0)
         {
             enemyAction = rng;
             break;
         }
     }
-    switch (enemyAction)
+    switch (enemyAction) // List of enemy actions
     {
-        case 1: Attack("Bite", "Enemy", playerHP, 8, 18, 0, enemyMP, 80);
-        break;
+        case 1: Attack("Bite", "Enemy", playerHP, 5, 12, 0, enemyMP, 85);
+            break;
 
-        case 2: Attack("Magic", "Enemy", playerHP, 20, 30, 15, enemyMP, 60);
-        break;
+        case 2: Attack("Magic", "Enemy", playerHP, 15, 20, 15, enemyMP, 75);
+            break;
 
-        case 3: Heal("Enemy", enemyHP, enemyMP);
-        break;
+        case 3: Heal("Enemy", enemyHP, enemyMP, 15, 25);
+            break;
+
+        case 4: Meditate("Enemy", enemyMP, 5, 15);
+            break;
 
         default:
         cout << "Enemy action failed! (" << enemyAction << ")" << endl << endl;
@@ -159,7 +177,8 @@ void BattleMenu()
     // Battle Options
     cout << "1. Attack" << endl;
     cout << "2. Magic (Cost: 15MP)" << endl;
-    cout << "3. Heal (Cost: 10MP)" << endl;
+    cout << "3. Heal (Cost: 20MP)" << endl;
+    cout << "4. Meditate" << endl;
     cout << "Your choice: ";
 
     int action;
@@ -174,16 +193,21 @@ void BattleMenu()
         switch (action)
         {
             case 1: // Basic Attack
-            Attack("Punch", "Player", enemyHP, 5, 12, 0, playerMP, 80);
-            break;
+            Attack("Punch", "Player", enemyHP, 5, 12, 0, playerMP, 90);
+                break;
 
             case 2: // Magic Attack
-            Attack("Magic", "Player", enemyHP, 15, 24, 15, playerMP, 60);
-            break;
+            Attack("Magic", "Player", enemyHP, 15, 20, 15, playerMP, 70);
+                break;
 
             case 3: // Healing
-            Heal("Player", playerHP, playerMP);
-            break;
+            Heal("Player", playerHP, playerMP, 15, 25);
+                break;
+
+            case 4: // Meditating
+            Meditate("Player", playerMP, 10, 20);
+                break;
+
 
             default:
             cout << "Invalid Action!" << endl;
