@@ -51,7 +51,7 @@ bool MissChance(int accuracy)
 // Battle Actions //
 //----------------//
 // Basic attack calculator, inputs can be customised to create any simple attack
-void Attack(const string& attackName, const string& user, int& hpTarget, int hpDamageMin, int hpDamageMax, int mpCost, int& mpSource, int accuracy)
+void Attack(const string attackText[], int attackTextRange, const string& user, int& hpTarget, int hpDamageMin, int hpDamageMax, int mpCost, int& mpSource, int accuracy)
 {
     if (mpSource < mpCost)
         cout << user << " doesn't have enough MP to use " << attackName << "!" << endl << endl;
