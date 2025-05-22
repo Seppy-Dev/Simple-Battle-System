@@ -210,7 +210,7 @@ void BattleMenu()
                 break;
 
             case 3: // Healing
-            Heal("Player", playerHP, playerMP, 15, 25);
+            Heal("YOU", playerHP, playerMP, 15, 25);
                 break;
 
             case 4: // Meditating
