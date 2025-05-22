@@ -154,7 +154,7 @@ void EnemyTurn()
         case 2: Attack(enemyMagicText, size(enemyMagicText),"ENEMY", playerHP, 15, 20, 15, enemyMP, 75);
             break;
 
-        case 3: Heal("Enemy", enemyHP, enemyMP, 15, 25);
+        case 3: Heal("ENEMY", enemyHP, enemyMP, 15, 25);
             break;
 
         case 4: Meditate("Enemy", enemyMP, 5, 15);
