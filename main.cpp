@@ -214,7 +214,7 @@ void BattleMenu()
                 break;
 
             case 4: // Meditating
-            Meditate("Player", playerMP, 10, 20);
+            Meditate("YOU", playerMP, 10, 20);
                 break;
 
 
