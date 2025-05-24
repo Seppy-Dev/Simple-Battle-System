@@ -41,7 +41,7 @@ struct Attack {
 // Cause the battle to cease and provide a message depending on the victor
 void EndBattle()
 {
-    if (playerHP > enemyHP)
+    if (player.hp > enemy.hp)
     {
         cout << "You win!" << endl << endl;
     }
@@ -66,24 +66,23 @@ bool MissChance(int accuracy)
 // Battle Actions //
 //----------------//
 // Basic attack calculator, inputs can be customised to create any simple attack
-void Attack(const string attackText[], int attackTextRange, const string& user, int& hpTarget, int hpDamageMin, int hpDamageMax, int mpCost, int& mpSource, int accuracy)
+void Attack(Battler& user, Battler& target, const Attack& attack)
 {
-    string attackName = attackText[RandomNumber(0, attackTextRange - 1)];
+    if (user.mp < attack.mpCost)
+        cout << user.name << " doesn't have enough MP to use " << attack.name << "!" << endl << endl;
 
-    if (mpSource < mpCost)
-        cout << user << " doesn't have enough MP to use " << attackName << "!" << endl << endl;
-    else if (MissChance(accuracy))
-    {
-        mpSource -= mpCost;
-        cout << user << " used " << attackName << "... but missed!" << endl << endl;
+    else if (MissChance(attack.accuracy)) {
+        user.mp -= attack.mpCost;
+        cout << user.name << " used " << attack.name << "... but missed!" << endl << endl;
     }
-    else
-    {
-        mpSource -= mpCost;
-        int damage = RandomNumber(hpDamageMin, hpDamageMax);
-        hpTarget -= damage;
-        cout << user << " used " << attackName << " and dealt " << damage << " damage!" << endl << endl;
-        if (hpTarget <= 0)
+
+    else {
+        user.mp -= attack.mpCost;
+        int damage = RandomNumber(attack.minDamage, attack.maxDamage);
+        target.hp -= damage;
+        cout << user.name << " used " << attack.name << " and dealt " << damage << " damage!" << endl << endl;
+
+        if (target.hp <= 0)
             EndBattle();
     }
 }
@@ -136,17 +135,17 @@ void EnemyTurn()
     int enemyActions[] = {1,2,3,4};
 
     // Enemy avoids magic if they don't have enough MP
-    if (enemyMP < 10)
+    if (enemy.mp < 10)
         enemyActions[2] = 0;
-    if (enemyMP < 20)
+    if (enemy.mp < 20)
         enemyActions[1] = 0;
 
     // Avoids healing if high HP
-    if (enemyHP > 70)
+    if (enemy.hp > 70)
         enemyActions[2] = 0;
 
     // Avoids meditating if high MP
-    if (enemyMP > 20)
+    if (enemy.hp > 20)
         enemyActions[3] = 0;
 
     // Selects a random non-disabled action by looping the value of enemyAction to the value of the chosen action until it reaches a non-zero value
@@ -162,16 +161,16 @@ void EnemyTurn()
     }
     switch (enemyAction) // List of enemy actions
     {
-        case 1: Attack(enemyAttackText, size(enemyAttackText), "ENEMY", playerHP, 5, 12, 0, enemyMP, 85);
+        case 1: Attack(enemy, player, darkMelee);
             break;
 
-        case 2: Attack(enemyMagicText, size(enemyMagicText),"ENEMY", playerHP, 15, 20, 15, enemyMP, 75);
+        case 2: Attack(enemy, player, darkMagic);
             break;
 
-        case 3: Heal("ENEMY", enemyHP, enemyMP, 15, 25);
+        case 3: Heal("ENEMY", enemy.hp, enemy.mp, 15, 25);
             break;
 
-        case 4: Meditate("ENEMY", enemyMP, 5, 15);
+        case 4: Meditate("ENEMY", enemy.mp, 5, 15);
             break;
 
         default:
@@ -190,15 +189,15 @@ void BattleMenu()
     // Player stats
     cout << "----------" << endl;
     cout << "YOU" << endl;
-    cout << "HP: " << playerHP << endl;
-    cout << "MP: " << playerMP << endl;
+    cout << "HP: " << player.hp << endl;
+    cout << "MP: " << player.mp << endl;
     cout << "----------" << endl << endl;
 
     // Enemy Stats
     cout << "----------" << endl;
     cout << "ENEMY" << endl;
-    cout << "HP: " << enemyHP << endl;
-    cout << "MP: " << enemyMP << endl;
+    cout << "HP: " << enemy.hp << endl;
+    cout << "MP: " << enemy.mp << endl;
     cout << "----------" << endl << endl;
 
     this_thread::sleep_for(chrono::seconds(1));
@@ -222,19 +221,19 @@ void BattleMenu()
         switch (action)
         {
             case 1: // Basic Attack
-            Attack(playerAttackText, size(playerAttackText), "YOU", enemyHP, 5, 12, 0, playerMP, 90);
+            Attack(player, enemy, melee);
                 break;
 
             case 2: // Magic Attack
-            Attack(enemyMagicText, size(playerMagicText),"YOU", enemyHP, 15, 20, 15, playerMP, 70);
+            Attack(player, enemy, magic);
                 break;
 
             case 3: // Healing
-            Heal("YOU", playerHP, playerMP, 15, 25);
+            Heal("YOU", player.hp, player.mp, 15, 25);
                 break;
 
             case 4: // Meditating
-            Meditate("YOU", playerMP, 10, 20);
+            Meditate("YOU", player.mp, 10, 20);
                 break;
 
             case 69420: // Secret amazing attack
