@@ -25,6 +25,15 @@ string enemyAttackText[] = {"BITE", "SCRATCH"};
 string enemyMagicText[] = {"FIREBALL", "DARK MAGIC", "LIGHTNING"};
 string playerAttackText[] = {"PUNCH", "KICK"};
 string playerMagicText[] = {"FIREBALL", "LIGHT MAGIC", "LIGHTNING"};
+struct Battler {
+    string name;
+    int hp = 100;
+    int mp = 100;
+};
+Battler player = {"YOU"};
+Battler enemy = {"ENEMY"};
+
+
 
 //------------------------//
 // Basic Battle Functions //
