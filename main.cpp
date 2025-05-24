@@ -148,10 +148,10 @@ void EnemyTurn()
     int enemyActions[] = {1,2,3,4};
 
     // Enemy avoids magic if they don't have enough MP
-    if (enemy.mp < 10)
-        enemyActions[2] = 0;
-    if (enemy.mp < 20)
+    if (enemy.mp < darkMagic.mpCost)
         enemyActions[1] = 0;
+    if (enemy.mp < 20)
+        enemyActions[2] = 0;
 
     // Avoids healing if high HP
     if (enemy.hp > 70)
