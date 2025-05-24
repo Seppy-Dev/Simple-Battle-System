@@ -29,9 +29,8 @@ struct Battler {
     int hp = 100;
     int mp = 100;
 };
-Battler player = {"YOU"};
-Battler enemy = {"ENEMY"};
-
+Battler player = {"YOU", 100, 100};
+Battler enemy = {"ENEMY", 100, 100};
 
 struct Attack {
     string name;
