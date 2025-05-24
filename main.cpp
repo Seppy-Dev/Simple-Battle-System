@@ -158,7 +158,7 @@ void EnemyTurn()
         enemyActions[2] = 0;
 
     // Avoids meditating if high MP
-    if (enemy.hp > 20)
+    if (enemy.mp > 20)
         enemyActions[3] = 0;
 
     // Selects a random non-disabled action by looping the value of enemyAction to the value of the chosen action until it reaches a non-zero value
