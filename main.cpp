@@ -271,10 +271,11 @@ void BattleMenu()
             continue;
         }
 
-        this_thread::sleep_for(chrono::seconds(1));
 
+        this_thread::sleep_for(chrono::seconds(1));
         if (battleActive)
             EnemyTurn();
+            this_thread::sleep_for(chrono::seconds(1));
     }
 }
 
