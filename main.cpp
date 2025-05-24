@@ -5,14 +5,7 @@
 #include "SkyesRandomStuff/RandomNumber.h"
 
 using namespace std;
-using namespace srs;
 
-// Silly goofy global variables
-// These shud probs be a class/struct or smth but idrk how to do that properly in C++ yet (sob)
-int playerHP = 100;
-int playerMP = 100;
-int enemyHP = 100;
-int enemyMP = 100;
 bool battleActive = true;
 
 int RandomNumber(int min, int max)
