@@ -34,6 +34,13 @@ Battler player = {"YOU"};
 Battler enemy = {"ENEMY"};
 
 
+struct Attack {
+    string name;
+    int minDamage = 1;
+    int maxDamage = 1;
+    int mpCost = 0;
+    int accuracy = 100;
+};
 
 //------------------------//
 // Basic Battle Functions //
