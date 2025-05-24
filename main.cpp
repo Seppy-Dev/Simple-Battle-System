@@ -198,6 +198,7 @@ void BattleMenu()
 {
     while (battleActive) // Main game loop
     {
+    LoadAttacks();
     // Player stats
     cout << "----------" << endl;
     cout << "YOU" << endl;
@@ -284,6 +285,7 @@ void BattleMenu()
 int main()
 {
     srand(time(nullptr));
+    LoadAttacks();
     BattleMenu();
     system("pause");
     return 0;
