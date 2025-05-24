@@ -18,6 +18,12 @@ vector<string> darkMeleeAttackText = {"BITE", "SCRATCH"};
 vector<string> darkMagicText = {"FIREBALL", "DARK MAGIC", "LIGHTNING"};
 vector<string> meleeAttackText = {"PUNCH", "KICK"};
 vector<string> magicText = {"FIREBALL", "LIGHT MAGIC", "LIGHTNING"};
+
+string FlavourTextPicker(const vector<string> &list, int listSize) {
+    string attackName = list[RandomNumber(0, listSize - 1)];
+    return attackName;
+};
+
 struct Battler {
     string name;
     int hp = 100;
