@@ -40,6 +40,19 @@ struct Attack {
     int mpCost = 0;
     int accuracy = 100;
 };
+Attack melee;
+Attack darkMelee;
+Attack magic;
+Attack darkMagic;
+
+void LoadAttacks() {
+melee = {FlavourTextPicker(meleeAttackText, size(meleeAttackText)), 5, 12, 0, 90};
+darkMelee = {FlavourTextPicker(darkMeleeAttackText, size(darkMeleeAttackText)), 8, 14, 0, 80};
+magic = {FlavourTextPicker(magicText, size(magicText)), 15, 20, 15, 70};
+darkMagic = {FlavourTextPicker(darkMagicText, size(darkMagicText)), 17, 22, 15, 60};
+}
+
+
 
 //------------------------//
 // Basic Battle Functions //
