@@ -259,22 +259,10 @@ void BattleMenu()
             cout << "Invalid Action!" << endl;
             continue;
         }
-        if (playerHP <= 0 || enemyHP <= 0)
-        {
-            EndBattle();
-            break;
-        }
 
         this_thread::sleep_for(chrono::seconds(1));
-
-        // Enemy's turn
         EnemyTurn();
-        this_thread::sleep_for(chrono::seconds(1));
-        if (playerHP <= 0 || enemyHP <= 0)
-        {
-            EndBattle();
-            break;
-        }
+
     }
 }
 
