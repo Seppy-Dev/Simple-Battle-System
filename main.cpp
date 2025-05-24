@@ -42,9 +42,7 @@ struct Attack {
 void EndBattle()
 {
     if (player.hp > enemy.hp)
-    {
         cout << "You win!" << endl << endl;
-    }
     else
         cout << "You lose!" << endl << endl;
     battleActive = false;
@@ -55,11 +53,8 @@ bool MissChance(int accuracy)
 {
     int rng = RandomNumber(1,100);
     if (rng > accuracy)
-    {
         return true;
-    }
-    else
-        return false;
+    return false;
 }
 
 //----------------//
@@ -92,13 +87,11 @@ void Attack(Battler& user, Battler& target, const Attack& attack)
 void Heal(const string& user, int& HPTarget, int& MPSource, int min, int max)
 {
     if (MPSource < 20)
-    {
         cout << user << " doesn't have enough MP to heal!" << endl << endl;
-    }
+
     else if (HPTarget == 100)
-    {
         cout << user << "'s HP is already full!" << endl << endl;
-    }
+
     else
     {
         int amount = RandomNumber(min, max);
@@ -115,6 +108,7 @@ void Meditate(const string& user, int& MPTarget, int min, int max)
 {
     if (MPTarget == 100)
         cout << user << "'s MP is already full!" << endl << endl;
+
     else
     {
         int amount = RandomNumber(min, max);
@@ -152,8 +146,7 @@ void EnemyTurn()
     int enemyAction = 0;
     while (enemyAction == 0)
     {
-        int rng = enemyActions[RandomNumber(0,(size(enemyActions) - 1))];
-        if (rng != 0)
+        if (int rng = enemyActions[RandomNumber(0,(size(enemyActions) - 1))]; rng != 0)
         {
             enemyAction = rng;
             break;
@@ -253,7 +246,6 @@ void BattleMenu()
                         cout << "#####";
                 }
                     exit(-1);
-
 
             default:
             cout << "Invalid Action!" << endl;
