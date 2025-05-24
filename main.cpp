@@ -273,7 +273,6 @@ void BattleMenu()
         }
 
         this_thread::sleep_for(chrono::seconds(1));
-        EnemyTurn();
 
         if (battleActive)
             EnemyTurn();
