@@ -15,6 +15,11 @@ int enemyHP = 100;
 int enemyMP = 100;
 bool battleActive = true;
 
+int RandomNumber(int min, int max)
+{
+    return (rand() % (max - min + 1)) + min;
+}
+
 // Flavour text for certain attacks
 string enemyAttackText[] = {"BITE", "SCRATCH"};
 string enemyMagicText[] = {"FIREBALL", "DARK MAGIC", "LIGHTNING"};
