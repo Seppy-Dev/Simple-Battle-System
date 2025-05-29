@@ -17,10 +17,9 @@ bool MissChance(int accuracy)
     return false;
 }
 
-Attack::Attack(const string &name, const Battler &user, const Battler &target, int minDamage, const int maxDamage,
-    const int mpCost, const int accuracy) : user{user}, target{target}, name{name}, minDamage{minDamage}, maxDamage{maxDamage}, mpCost{mpCost}, accuracy{accuracy}{}
+Attack::Attack(const string& name, int minDamage, int maxDamage, int mpCost, int accuracy) : name{name}, minDamage{minDamage}, maxDamage{maxDamage}, mpCost{mpCost}, accuracy{accuracy}{}
 
-void Attack::useAttack() {
+void Attack::useAttack(Battler& user, Battler& target) const {
     if (user.getHp() < mpCost)
         cout << user.getName() << " doesn't have enough MP to use " << name << "!" << endl << endl;
 
@@ -31,7 +30,7 @@ void Attack::useAttack() {
 
     else {
         user.reduceMp(mpCost);
-        int damage = minDamage + (rand() % maxDamage);
+        const int damage = minDamage + (rand() % maxDamage);
         target.reduceHp(damage);
         cout << user.getName() << " used " << name << " and dealt " << damage << " damage!" << endl << endl;
     }
