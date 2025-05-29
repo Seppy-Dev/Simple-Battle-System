@@ -24,7 +24,7 @@ Attack darkMagic("DARK MAGIC", 17, 22, 15, 60);
 // Cause the battle to cease and provide a message depending on the victor
 void EndBattle()
 {
-    if (player.hp > enemy.hp)
+    if (player.getHp() > enemy.getHp())
         cout << "You win!" << endl << endl;
     else
         cout << "You lose!" << endl << endl;
@@ -32,39 +32,33 @@ void EndBattle()
 }
 
 
-// Healing lets the user recover HP at the cost of some MP
-void Heal(const string& user, int& HPTarget, int& MPSource, int min, int max)
+void Heal(Battler& battler, int min, int max)
 {
-    if (MPSource < 20)
-        cout << user << " doesn't have enough MP to heal!" << endl << endl;
+    if (battler.getMp() < 20)
+        cout << battler.getName() << " doesn't have enough MP to heal!" << endl << endl;
 
-    else if (HPTarget == 100)
-        cout << user << "'s HP is already full!" << endl << endl;
+    else if (battler.getHp() == 100)
+        cout << battler.getName() << "'s HP is already full!" << endl << endl;
 
     else
     {
-        int amount = RandomNumber(min, max);
-        HPTarget += amount;
-        if (HPTarget > 100)
-            HPTarget = 100;
-        MPSource -= 20;
-        cout << user << " healed " << amount << " HP!" << endl << endl;
+        int amount = min + rand() % max;
+        battler.recoverHp(amount);
+        battler.reduceMp(20);
+        cout << battler.getName() << " healed " << amount << " HP!" << endl << endl;
     }
 }
 
-// Meditating lets the user recover some MP
-void Meditate(const string& user, int& MPTarget, int min, int max)
+void Meditate(Battler& battler, int min, int max)
 {
-    if (MPTarget == 100)
-        cout << user << "'s MP is already full!" << endl << endl;
+    if (battler.getMp() == 100)
+        cout << battler.getName() << "'s MP is already full!" << endl << endl;
 
     else
     {
-        int amount = RandomNumber(min, max);
-        MPTarget += amount;
-        if (MPTarget > 100)
-            MPTarget = 100;
-        cout << user << " recovered " << amount << " MP!" << endl << endl;
+        int amount = min + rand() % max;
+        battler.recoverMp(amount);
+        cout << battler.getName() << " recovered " << amount << " MP!" << endl << endl;
     }
 }
 
@@ -78,17 +72,17 @@ void EnemyTurn()
     int enemyActions[] = {1,2,3,4};
 
     // Enemy avoids magic if they don't have enough MP
-    if (enemy.mp < darkMagic.mpCost)
+    if (enemy.getMp() < darkMagic.mpCost)
         enemyActions[1] = 0;
-    if (enemy.mp < 20)
+    if (enemy.getMp() < 20)
         enemyActions[2] = 0;
 
     // Avoids healing if high HP
-    if (enemy.hp > 70)
+    if (enemy.getHp() > 70)
         enemyActions[2] = 0;
 
     // Avoids meditating if high MP
-    if (enemy.mp > 20)
+    if (enemy.getMp() > 20)
         enemyActions[3] = 0;
 
     // Selects a random non-disabled action by looping the value of enemyAction to the value of the chosen action until it reaches a non-zero value
@@ -103,16 +97,16 @@ void EnemyTurn()
     }
     switch (enemyAction) // List of enemy actions
     {
-        case 1: Attack(enemy, player, darkMelee);
+        case 1: darkMelee.useAttack(enemy, player);
             break;
 
-        case 2: Attack(enemy, player, darkMagic);
+        case 2: darkMagic.useAttack(enemy, player);
             break;
 
-        case 3: Heal("ENEMY", enemy.hp, enemy.mp, 15, 25);
+        case 3: Heal(enemy, 15, 25);
             break;
 
-        case 4: Meditate("ENEMY", enemy.mp, 5, 15);
+        case 4: Meditate(enemy, 5, 25);
             break;
 
         default:
@@ -128,19 +122,18 @@ void BattleMenu()
 {
     while (battleActive) // Main game loop
     {
-    LoadAttacks();
     // Player stats
     cout << "----------" << endl;
     cout << "YOU" << endl;
-    cout << "HP: " << player.hp << endl;
-    cout << "MP: " << player.mp << endl;
+    cout << "HP: " << player.getHp() << endl;
+    cout << "MP: " << player.getMp() << endl;
     cout << "----------" << endl << endl;
 
     // Enemy Stats
     cout << "----------" << endl;
     cout << "ENEMY" << endl;
-    cout << "HP: " << enemy.hp << endl;
-    cout << "MP: " << enemy.mp << endl;
+    cout << "HP: " << enemy.getHp() << endl;
+    cout << "MP: " << enemy.getMp() << endl;
     cout << "----------" << endl << endl;
 
     this_thread::sleep_for(chrono::seconds(1));
@@ -164,19 +157,19 @@ void BattleMenu()
         switch (action)
         {
             case 1: // Basic Attack
-            Attack(player, enemy, melee);
+            melee.useAttack(player, enemy);
                 break;
 
             case 2: // Magic Attack
-            Attack(player, enemy, magic);
+            magic.useAttack(player, enemy);
                 break;
 
             case 3: // Healing
-            Heal("YOU", player.hp, player.mp, 15, 25);
+            Heal(player, 15, 25);
                 break;
 
             case 4: // Meditating
-            Meditate("YOU", player.mp, 10, 20);
+            Meditate(player, 10, 20);
                 break;
 
             case 69420: // Secret amazing attack
@@ -217,7 +210,6 @@ void BattleMenu()
 int main()
 {
     srand(time(nullptr));
-    LoadAttacks();
     BattleMenu();
     system("pause");
     return 0;
