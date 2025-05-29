@@ -152,6 +152,7 @@ void BattleMenu()
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Invalid input! Please enter a number: ";
     }
+        system("cls");
 
         // Player's turn
         switch (action)
