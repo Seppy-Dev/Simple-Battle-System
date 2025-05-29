@@ -40,3 +40,19 @@ string Attack::FlavourTextPicker(const string list[], size_t size) {
     string attackName = list[0]; //TODO: Add randomiser to pick a random index
     return attackName;
 }
+
+const int Attack::getMinDamage() const {
+    return minDamage;
+}
+
+const int Attack::getMaxDamage() const {
+    return maxDamage;
+}
+
+const int Attack::getMpCost() const {
+    return mpCost;
+}
+
+const int Attack::getAccuracy() const {
+    return accuracy;
+}

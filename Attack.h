@@ -16,6 +16,11 @@ public:
     void useAttack(Battler& user, Battler& target) const;
     string FlavourTextPicker(const string list[], size_t size);
 
+    const int getMinDamage() const;
+    const int getMaxDamage() const;
+    const int getMpCost() const;
+    const int getAccuracy() const;
+
 private:
     string name;
     int minDamage = 1;
