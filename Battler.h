@@ -16,6 +16,7 @@ public:
     int getHp() const;
     int getMp() const;
 
+
     bool isAlive() const;
     bool isFullHp() const;
     bool isFullMp() const;
@@ -29,6 +30,6 @@ private:
     int hp;
     int mp;
     static constexpr int MAX_HP = 100;
-    static constexpr  int MAX_MP = 100;
+    static constexpr int MAX_MP = 100;
 };
 #endif //BATTLER_H
