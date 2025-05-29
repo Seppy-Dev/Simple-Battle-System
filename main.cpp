@@ -3,11 +3,15 @@
 #include <chrono>
 #include <random>
 #include <thread>
+#include "Attack.h"
+#include "Battler.h"
 
 using namespace std;
 
 bool battleActive = true;
 
+Battler player("YOU");
+Battler enemy("ENEMY");
 int RandomNumber(int min, int max)
 {
     return (rand() % (max - min + 1)) + min;
@@ -23,14 +27,6 @@ string FlavourTextPicker(const vector<string> &list, int listSize) {
     string attackName = list[RandomNumber(0, listSize - 1)];
     return attackName;
 };
-
-struct Battler {
-    string name;
-    int hp = 100;
-    int mp = 100;
-};
-Battler player = {"YOU", 100, 100};
-Battler enemy = {"ENEMY", 100, 100};
 
 struct Attack {
     string name;
