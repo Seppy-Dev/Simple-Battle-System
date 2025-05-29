@@ -121,14 +121,14 @@ void BattleMenu()
     {
     // Player stats
     cout << "----------" << endl;
-    cout << "YOU" << endl;
+    cout << player.getName() << endl;
     cout << "HP: " << player.getHp() << endl;
     cout << "MP: " << player.getMp() << endl;
     cout << "----------" << endl << endl;
 
     // Enemy Stats
     cout << "----------" << endl;
-    cout << "ENEMY" << endl;
+    cout << enemy.getName() << endl;
     cout << "HP: " << enemy.getHp() << endl;
     cout << "MP: " << enemy.getMp() << endl;
     cout << "----------" << endl << endl;
