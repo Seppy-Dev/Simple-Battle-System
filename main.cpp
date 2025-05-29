@@ -195,12 +195,15 @@ void BattleMenu()
             cout << "Invalid Action!" << endl;
             continue;
         }
-
+        if (!enemy.isAlive())
+            EndBattle();
 
         this_thread::sleep_for(chrono::seconds(1));
         if (battleActive)
             EnemyTurn();
             this_thread::sleep_for(chrono::seconds(1));
+        if (!player.isAlive())
+            EndBattle();
     }
 }
 
