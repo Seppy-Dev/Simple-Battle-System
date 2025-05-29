@@ -12,14 +12,11 @@ using namespace std;
 
 class Attack {
 public:
-    explicit Attack(const string& name, const Battler& user, const Battler& target, int minDamage, int maxDamage, int mpCost, int accuracy);
-    void useAttack();
+    explicit Attack(const string& name, int minDamage, int maxDamage, int mpCost, int accuracy);
+    void useAttack(Battler& user, Battler& target) const;
     string FlavourTextPicker(const string list[], size_t size);
 
 private:
-    Battler user;
-    Battler target;
-
     string name;
     int minDamage = 1;
     int maxDamage = 1;
