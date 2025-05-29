@@ -13,6 +13,10 @@ bool battleActive = true;
 Battler player("YOU");
 Battler enemy("ENEMY");
 
+Attack melee("PUNCH", 5, 12, 0, 90);
+Attack magic("MAGIC", 15, 20, 15, 70);
+Attack darkMelee("BITE", 8, 14, 0, 80);
+Attack darkMagic("DARK MAGIC", 17, 22, 15, 60);
 
 //------------------------//
 // Basic Battle Functions //
