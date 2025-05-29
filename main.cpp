@@ -12,11 +12,6 @@ bool battleActive = true;
 
 Battler player("YOU");
 Battler enemy("ENEMY");
-int RandomNumber(int min, int max)
-{
-    return (rand() % (max - min + 1)) + min;
-}
-
 
 
 //------------------------//
