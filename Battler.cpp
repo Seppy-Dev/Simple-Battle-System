@@ -4,6 +4,8 @@
 
 #include "Battler.h"
 
+Battler::Battler(const string &name, int hp, int mp) : name{name}, hp{hp}, mp{mp} {}
+
 const string &Battler::getName() const {
    return name;
 }
@@ -25,15 +27,15 @@ bool Battler::isFullMp() const {
 }
 
 void Battler::reduceHp(const int amount) {
-   hp -= amount;
+   hp = max(0, hp -= amount);
 }
-void Battler::reduceMp(int amount) {
-   mp -= amount;
+void Battler::reduceMp(const int amount) {
+   mp = max(0, mp - amount);
 }
-void Battler::recoverHp(int amount) {
-   hp += amount;
+void Battler::recoverHp(const int amount) {
+   hp = min(MAX_HP, hp + amount);
 }
-void Battler::recoverMp(int amount) {
-   mp += amount;
+void Battler::recoverMp(const int amount) {
+   mp = min(MAX_MP, mp + amount);
 }
 
