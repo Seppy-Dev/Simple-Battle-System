@@ -34,7 +34,7 @@ void Heal(Battler& battler, int min, int max)
     if (battler.getMp() < 20)
         cout << battler.getName() << " doesn't have enough MP to heal!" << endl << endl;
 
-    else if (battler.getHp() == 100)
+    else if (battler.isFullHp())
         cout << battler.getName() << "'s HP is already full!" << endl << endl;
 
     else
@@ -48,7 +48,7 @@ void Heal(Battler& battler, int min, int max)
 
 void Meditate(Battler& battler, int min, int max)
 {
-    if (battler.getMp() == 100)
+    if (battler.isFullMp())
         cout << battler.getName() << "'s MP is already full!" << endl << endl;
 
     else
