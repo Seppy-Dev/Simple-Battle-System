@@ -10,7 +10,7 @@ using namespace std;
 
 bool battleActive = true;
 
-Battler player("YOU");
+Battler player("PLAYER");
 Battler enemy("ENEMY");
 
 Attack melee("PUNCH", 5, 12, 0, 90);
