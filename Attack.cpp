@@ -30,7 +30,7 @@ void Attack::useAttack(Battler& user, Battler& target) const {
 
     else {
         user.reduceMp(mpCost);
-        const int damage = minDamage + (rand() % maxDamage);
+        const int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
         target.reduceHp(damage);
         cout << user.getName() << " used " << name << " and dealt " << damage << " damage!" << endl << endl;
     }
