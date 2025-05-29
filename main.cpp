@@ -89,7 +89,7 @@ void EnemyTurn()
     int enemyAction = 0;
     while (enemyAction == 0)
     {
-        if (int rng = enemyActions[RandomNumber(0,(size(enemyActions) - 1))]; rng != 0)
+        if (int rng = enemyActions[rand() % size(enemyActions)]; rng != 0)
         {
             enemyAction = rng;
             break;
