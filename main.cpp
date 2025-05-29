@@ -72,7 +72,7 @@ void EnemyTurn()
     int enemyActions[] = {1,2,3,4};
 
     // Enemy avoids magic if they don't have enough MP
-    if (enemy.getMp() < darkMagic.mpCost)
+    if (enemy.getMp() < darkMagic.getMpCost())
         enemyActions[1] = 0;
     if (enemy.getMp() < 20)
         enemyActions[2] = 0;
