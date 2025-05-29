@@ -22,12 +22,9 @@ Attack darkMagic("DARK MAGIC", 17, 22, 15, 60);
 // Basic Battle Functions //
 //------------------------//
 // Cause the battle to cease and provide a message depending on the victor
-void EndBattle()
+void EndBattle(Battler& winner)
 {
-    if (player.getHp() > enemy.getHp())
-        cout << "You win!" << endl << endl;
-    else
-        cout << "You lose!" << endl << endl;
+    cout << winner.getName() << " wins!";
     battleActive = false;
 }
 
@@ -196,14 +193,14 @@ void BattleMenu()
             continue;
         }
         if (!enemy.isAlive())
-            EndBattle();
+            EndBattle(player);
 
         this_thread::sleep_for(chrono::seconds(1));
         if (battleActive)
             EnemyTurn();
             this_thread::sleep_for(chrono::seconds(1));
         if (!player.isAlive())
-            EndBattle();
+            EndBattle(enemy);
     }
 }
 
