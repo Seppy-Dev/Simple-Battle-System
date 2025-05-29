@@ -17,36 +17,6 @@ int RandomNumber(int min, int max)
     return (rand() % (max - min + 1)) + min;
 }
 
-// Flavour text for certain attacks
-vector<string> darkMeleeAttackText = {"BITE", "SCRATCH"};
-vector<string> darkMagicText = {"FIREBALL", "DARK MAGIC", "LIGHTNING"};
-vector<string> meleeAttackText = {"PUNCH", "KICK"};
-vector<string> magicText = {"FIREBALL", "LIGHT MAGIC", "LIGHTNING"};
-
-string FlavourTextPicker(const vector<string> &list, int listSize) {
-    string attackName = list[RandomNumber(0, listSize - 1)];
-    return attackName;
-};
-
-struct Attack {
-    string name;
-    int minDamage = 1;
-    int maxDamage = 1;
-    int mpCost = 0;
-    int accuracy = 100;
-};
-Attack melee;
-Attack darkMelee;
-Attack magic;
-Attack darkMagic;
-
-void LoadAttacks() {
-melee = {FlavourTextPicker(meleeAttackText, size(meleeAttackText)), 5, 12, 0, 90};
-darkMelee = {FlavourTextPicker(darkMeleeAttackText, size(darkMeleeAttackText)), 8, 14, 0, 80};
-magic = {FlavourTextPicker(magicText, size(magicText)), 15, 20, 15, 70};
-darkMagic = {FlavourTextPicker(darkMagicText, size(darkMagicText)), 17, 22, 15, 60};
-}
-
 
 
 //------------------------//
@@ -60,40 +30,6 @@ void EndBattle()
     else
         cout << "You lose!" << endl << endl;
     battleActive = false;
-}
-
-// Used to return a bool which decides if attacks miss or not in attack functions
-bool MissChance(int accuracy)
-{
-    int rng = RandomNumber(1,100);
-    if (rng > accuracy)
-        return true;
-    return false;
-}
-
-//----------------//
-// Battle Actions //
-//----------------//
-// Basic attack calculator, inputs can be customised to create any simple attack
-void Attack(Battler& user, Battler& target, const Attack& attack)
-{
-    if (user.mp < attack.mpCost)
-        cout << user.name << " doesn't have enough MP to use " << attack.name << "!" << endl << endl;
-
-    else if (MissChance(attack.accuracy)) {
-        user.mp -= attack.mpCost;
-        cout << user.name << " used " << attack.name << "... but missed!" << endl << endl;
-    }
-
-    else {
-        user.mp -= attack.mpCost;
-        int damage = RandomNumber(attack.minDamage, attack.maxDamage);
-        target.hp -= damage;
-        cout << user.name << " used " << attack.name << " and dealt " << damage << " damage!" << endl << endl;
-
-        if (target.hp <= 0)
-            EndBattle();
-    }
 }
 
 
