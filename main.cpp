@@ -19,6 +19,10 @@ Attack magic("MAGIC", 15, 20, 15, 70);
 Attack darkMelee("BITE", 8, 14, 0, 80);
 Attack darkMagic("DARK MAGIC", 17, 22, 15, 60);
 
+Heal heal("HEAL", 15, 25, 20);
+Heal bigHeal("BIG HEAL", 30, 50, 35);
+Heal maxHeal("SUPER HEAL", 70, 100, 50);
+
 Recover recover("MEDITATE", 10, 15);
 Recover zenZone("ZEN ZONE", 20, 30);
 //------------------------//
@@ -72,7 +76,7 @@ void EnemyTurn()
         case 2: darkMagic.useAttack(enemy, player);
             break;
 
-        case 3: Heal(enemy, 15, 25);
+        case 3: heal.use(enemy);
             break;
 
         case 4: recover.use(enemy);
@@ -134,8 +138,8 @@ void BattleMenu()
             magic.useAttack(player, enemy);
                 break;
 
-            case 3: // Healing
-            Heal(player, 15, 25);
+            case 3:
+            heal.use(player);
                 break;
 
             case 4:
