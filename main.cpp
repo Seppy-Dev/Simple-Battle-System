@@ -5,7 +5,7 @@
 #include "src/actions/Attack.h"
 #include "src/entities/Battler.h"
 #include "src/actions/Heal.h"
-#include "src/actions/Meditate.h"
+#include "src/actions/Recover.h"
 
 using namespace std;
 
@@ -19,6 +19,8 @@ Attack magic("MAGIC", 15, 20, 15, 70);
 Attack darkMelee("BITE", 8, 14, 0, 80);
 Attack darkMagic("DARK MAGIC", 17, 22, 15, 60);
 
+Recover recover("MEDITATE", 10, 15);
+Recover zenZone("ZEN ZONE", 20, 30);
 //------------------------//
 // Basic Battle Functions //
 //------------------------//
@@ -73,7 +75,7 @@ void EnemyTurn()
         case 3: Heal(enemy, 15, 25);
             break;
 
-        case 4: Meditate(enemy, 5, 15);
+        case 4: recover.use(enemy);
             break;
 
         default:
@@ -109,7 +111,7 @@ void BattleMenu()
     cout << "1. Attack" << endl;
     cout << "2. Magic (Cost: 15MP)" << endl;
     cout << "3. Heal (Cost: 20MP)" << endl;
-    cout << "4. Meditate" << endl << endl;
+    cout << "4. Recover" << endl << endl;
     cout << "Your choice: ";
 
     int action;
@@ -136,8 +138,8 @@ void BattleMenu()
             Heal(player, 15, 25);
                 break;
 
-            case 4: // Meditating
-            Meditate(player, 10, 20);
+            case 4:
+            recover.use(player);
                 break;
 
             case 69420: // Secret amazing attack
