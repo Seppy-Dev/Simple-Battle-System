@@ -3,7 +3,6 @@
 //
 
 #include "Attack.h"
-#include "Battler.h"
 #include <iostream>
 
 using namespace std;

@@ -1,10 +1,11 @@
 #include <iostream>
-#include <string>
 #include <chrono>
-#include <random>
 #include <thread>
-#include "Attack.h"
-#include "Battler.h"
+
+#include "src/actions/Attack.h"
+#include "src/entities/Battler.h"
+#include "src/actions/Heal.h"
+#include "src/actions/Meditate.h"
 
 using namespace std;
 
@@ -26,37 +27,6 @@ void EndBattle(Battler& winner)
 {
     cout << winner.getName() << " wins!";
     battleActive = false;
-}
-
-
-void Heal(Battler& battler, int min, int max)
-{
-    if (battler.getMp() < 20)
-        cout << battler.getName() << " doesn't have enough MP to heal!" << endl << endl;
-
-    else if (battler.isFullHp())
-        cout << battler.getName() << "'s HP is already full!" << endl << endl;
-
-    else
-    {
-        int amount = min + rand() % max;
-        battler.recoverHp(amount);
-        battler.reduceMp(20);
-        cout << battler.getName() << " healed " << amount << " HP!" << endl << endl;
-    }
-}
-
-void Meditate(Battler& battler, int min, int max)
-{
-    if (battler.isFullMp())
-        cout << battler.getName() << "'s MP is already full!" << endl << endl;
-
-    else
-    {
-        int amount = min + rand() % max;
-        battler.recoverMp(amount);
-        cout << battler.getName() << " recovered " << amount << " MP!" << endl << endl;
-    }
 }
 
 
