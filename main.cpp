@@ -3,8 +3,10 @@
 #include <chrono>
 #include <random>
 #include <thread>
+
 #include "Attack.h"
 #include "Battler.h"
+#include "Heal.h"
 
 using namespace std;
 
@@ -29,22 +31,6 @@ void EndBattle(Battler& winner)
 }
 
 
-void Heal(Battler& battler, int min, int max)
-{
-    if (battler.getMp() < 20)
-        cout << battler.getName() << " doesn't have enough MP to heal!" << endl << endl;
-
-    else if (battler.isFullHp())
-        cout << battler.getName() << "'s HP is already full!" << endl << endl;
-
-    else
-    {
-        int amount = min + rand() % max;
-        battler.recoverHp(amount);
-        battler.reduceMp(20);
-        cout << battler.getName() << " healed " << amount << " HP!" << endl << endl;
-    }
-}
 
 void Meditate(Battler& battler, int min, int max)
 {

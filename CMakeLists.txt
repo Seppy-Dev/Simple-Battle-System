@@ -4,14 +4,16 @@ project(SimpleCPPBattleSystem)
 set(CMAKE_CXX_STANDARD 20)
 
 set(SOURCE_FILES
-    main.cpp
-    Attack.cpp
-    Battler.cpp
+        main.cpp
+        Attack.cpp
+        Battler.cpp
+        Heal.cpp
 )
 
 set(HEADER_FILES
-    Attack.h
-    Battler.h
+        Attack.h
+        Battler.h
+        Heal.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
