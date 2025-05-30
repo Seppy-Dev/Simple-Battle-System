@@ -13,7 +13,7 @@ using namespace std;
 class Attack {
 public:
     explicit Attack(const string& name, int minDamage, int maxDamage, int mpCost, int accuracy);
-    void useAttack(Battler& user, Battler& target) const;
+    void use(Battler& user, Battler& target) const;
     string FlavourTextPicker(const string list[], size_t size);
 
     const int getMinDamage() const;
