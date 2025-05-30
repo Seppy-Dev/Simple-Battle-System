@@ -5,19 +5,26 @@
 #include "src/actions/Attack.h"
 #include "src/entities/Battler.h"
 #include "src/actions/Heal.h"
-#include "src/actions/Meditate.h"
+#include "src/actions/Recover.h"
 
 using namespace std;
 
 bool battleActive = true;
 
-Battler player("PLAYER");
-Battler enemy("ENEMY");
+Battler player("PLAYER", 100, 100);
+Battler enemy("ENEMY", 100, 100);
 
 Attack melee("PUNCH", 5, 12, 0, 90);
 Attack magic("MAGIC", 15, 20, 15, 70);
 Attack darkMelee("BITE", 8, 14, 0, 80);
 Attack darkMagic("DARK MAGIC", 17, 22, 15, 60);
+
+Heal heal("HEAL", 15, 25, 20);
+Heal bigHeal("BIG HEAL", 30, 50, 35);
+Heal maxHeal("SUPER HEAL", 70, 100, 50);
+
+Recover recover("MEDITATE", 10, 15);
+Recover zenZone("ZEN ZONE", 20, 30);
 
 //------------------------//
 // Basic Battle Functions //
@@ -32,7 +39,7 @@ void EndBattle(Battler& winner)
 
 
 //-----------------------//
-// Enemy action selector //
+// Enemy action selector // //TODO: Clear this fucking shit up oh my god
 //-----------------------//
 void EnemyTurn()
 {
@@ -41,7 +48,7 @@ void EnemyTurn()
     // Enemy avoids magic if they don't have enough MP
     if (enemy.getMp() < darkMagic.getMpCost())
         enemyActions[1] = 0;
-    if (enemy.getMp() < 20)
+    if (enemy.getMp() < heal.getMpCost())
         enemyActions[2] = 0;
 
     // Avoids healing if high HP
@@ -52,7 +59,7 @@ void EnemyTurn()
     if (enemy.getMp() > 20)
         enemyActions[3] = 0;
 
-    // Selects a random non-disabled action by looping the value of enemyAction to the value of the chosen action until it reaches a non-zero value
+
     int enemyAction = 0;
     while (enemyAction == 0)
     {
@@ -62,18 +69,18 @@ void EnemyTurn()
             break;
         }
     }
-    switch (enemyAction) // List of enemy actions
+    switch (enemyAction)
     {
-        case 1: darkMelee.useAttack(enemy, player);
+        case 1: darkMelee.use(enemy, player);
             break;
 
-        case 2: darkMagic.useAttack(enemy, player);
+        case 2: darkMagic.use(enemy, player);
             break;
 
-        case 3: Heal(enemy, 15, 25);
+        case 3: heal.use(enemy);
             break;
 
-        case 4: Meditate(enemy, 5, 15);
+        case 4: recover.use(enemy);
             break;
 
         default:
@@ -87,16 +94,14 @@ void EnemyTurn()
 //-----------//
 void BattleMenu()
 {
-    while (battleActive) // Main game loop
+    while (battleActive)
     {
-    // Player stats
     cout << "----------" << endl;
     cout << player.getName() << endl;
     cout << "HP: " << player.getHp() << endl;
     cout << "MP: " << player.getMp() << endl;
     cout << "----------" << endl << endl;
 
-    // Enemy Stats
     cout << "----------" << endl;
     cout << enemy.getName() << endl;
     cout << "HP: " << enemy.getHp() << endl;
@@ -105,11 +110,10 @@ void BattleMenu()
 
     this_thread::sleep_for(chrono::seconds(1));
 
-    // Battle Options
     cout << "1. Attack" << endl;
     cout << "2. Magic (Cost: 15MP)" << endl;
     cout << "3. Heal (Cost: 20MP)" << endl;
-    cout << "4. Meditate" << endl << endl;
+    cout << "4. Recover" << endl << endl;
     cout << "Your choice: ";
 
     int action;
@@ -121,23 +125,22 @@ void BattleMenu()
     }
         system("cls");
 
-        // Player's turn
         switch (action)
         {
-            case 1: // Basic Attack
-            melee.useAttack(player, enemy);
+            case 1:
+            melee.use(player, enemy);
                 break;
 
-            case 2: // Magic Attack
-            magic.useAttack(player, enemy);
+            case 2:
+            magic.use(player, enemy);
                 break;
 
-            case 3: // Healing
-            Heal(player, 15, 25);
+            case 3:
+            heal.use(player);
                 break;
 
-            case 4: // Meditating
-            Meditate(player, 10, 20);
+            case 4:
+            recover.use(player);
                 break;
 
             case 69420: // Secret amazing attack
