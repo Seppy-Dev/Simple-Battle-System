@@ -8,12 +8,14 @@ set(SOURCE_FILES
         Attack.cpp
         Battler.cpp
         Heal.cpp
+        Meditate.cpp
 )
 
 set(HEADER_FILES
         Attack.h
         Battler.h
         Heal.h
+        Meditate.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})

@@ -7,6 +7,7 @@
 #include "Attack.h"
 #include "Battler.h"
 #include "Heal.h"
+#include "Meditate.h"
 
 using namespace std;
 
@@ -28,21 +29,6 @@ void EndBattle(Battler& winner)
 {
     cout << winner.getName() << " wins!";
     battleActive = false;
-}
-
-
-
-void Meditate(Battler& battler, int min, int max)
-{
-    if (battler.isFullMp())
-        cout << battler.getName() << "'s MP is already full!" << endl << endl;
-
-    else
-    {
-        int amount = min + rand() % max;
-        battler.recoverMp(amount);
-        cout << battler.getName() << " recovered " << amount << " MP!" << endl << endl;
-    }
 }
 
 
