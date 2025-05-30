@@ -6,7 +6,7 @@
 #define ATTACK_H
 
 #include <string>
-#include "Battler.h"
+#include "../entities/Battler.h"
 
 using namespace std;
 

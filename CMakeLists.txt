@@ -5,17 +5,17 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(SOURCE_FILES
         main.cpp
-        Attack.cpp
-        Battler.cpp
-        Heal.cpp
-        Meditate.cpp
+        src/actions/Attack.cpp
+        src/entities/Battler.cpp
+        src/actions/Heal.cpp
+        src/actions/Meditate.cpp
 )
 
 set(HEADER_FILES
-        Attack.h
-        Battler.h
-        Heal.h
-        Meditate.h
+        src/actions/Attack.h
+        src/entities/Battler.h
+        src/actions/Heal.h
+        src/actions/Meditate.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})

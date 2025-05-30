@@ -5,7 +5,7 @@
 #ifndef HEAL_H
 #define HEAL_H
 
-# include "Battler.h"
+#include "../entities/Battler.h"
 
 
 class Heal {

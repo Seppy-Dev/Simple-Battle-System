@@ -2,10 +2,10 @@
 #include <chrono>
 #include <thread>
 
-#include "Attack.h"
-#include "Battler.h"
-#include "Heal.h"
-#include "Meditate.h"
+#include "src/actions/Attack.h"
+#include "src/entities/Battler.h"
+#include "src/actions/Heal.h"
+#include "src/actions/Meditate.h"
 
 using namespace std;
 

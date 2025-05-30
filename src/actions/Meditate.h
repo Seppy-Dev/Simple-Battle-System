@@ -5,7 +5,7 @@
 #ifndef MEDITATE_H
 #define MEDITATE_H
 
-#include "Battler.h"
+#include "../entities/Battler.h"
 
 
 class Meditate {
