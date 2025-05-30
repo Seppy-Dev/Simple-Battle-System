@@ -8,14 +8,14 @@ set(SOURCE_FILES
         src/actions/Attack.cpp
         src/entities/Battler.cpp
         src/actions/Heal.cpp
-        src/actions/Meditate.cpp
+        src/actions/Recover.cpp
 )
 
 set(HEADER_FILES
         src/actions/Attack.h
         src/entities/Battler.h
         src/actions/Heal.h
-        src/actions/Meditate.h
+        src/actions/Recover.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
