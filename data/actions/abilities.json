@@ -1,0 +1,9 @@
+{
+  "abilities": {
+    "meditate": {
+      "name": "Meditate",
+      "minRecover": 10,
+      "maxRecover": 15
+    }
+  }
+}

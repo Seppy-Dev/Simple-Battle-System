@@ -1,0 +1,19 @@
+{
+  "attacks": {
+    "punch": {
+      "name": "Punch",
+      "minDamage": 5,
+      "maxDamage": 12,
+      "mpCost": 0,
+      "accuracy": 90
+    },
+
+    "bite": {
+      "name": "Bite",
+      "minDamage": 8,
+      "maxDamage": 14,
+      "mpCost": 0,
+      "accuracy": 80
+    }
+  }
+}
