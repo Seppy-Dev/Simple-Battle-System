@@ -9,6 +9,7 @@ set(SOURCE_FILES
         src/entities/Battler.cpp
         src/actions/Heal.cpp
         src/actions/Recover.cpp
+        src/battle/BattleMenu.cpp
 )
 
 set(HEADER_FILES
@@ -16,6 +17,7 @@ set(HEADER_FILES
         src/entities/Battler.h
         src/actions/Heal.h
         src/actions/Recover.h
+        src/battle/BattleMenu.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
