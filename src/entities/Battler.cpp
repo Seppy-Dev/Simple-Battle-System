@@ -4,6 +4,9 @@
 
 #include "Battler.h"
 
+Battler::Battler(string name, const int maxHp, const int maxMp, const int speed)
+: name{std::move(name)}, maxHp{maxHp}, maxMp{maxMp}, hp{maxHp}, mp{maxMp}, speed{speed} {};
+
 void Battler::reduceHp(const int amount) {
    hp = max(0, hp - amount);
 }

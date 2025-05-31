@@ -31,5 +31,6 @@ private:
     const int maxMp;
     int hp;
     int mp;
+    int speed;
 };
 #endif //BATTLER_H
