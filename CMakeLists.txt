@@ -4,7 +4,7 @@ project(SimpleCPPBattleSystem)
 set(CMAKE_CXX_STANDARD 20)
 
 set(SOURCE_FILES
-        main.cpp
+        src/main.cpp
         src/actions/Attack.cpp
         src/entities/Battler.cpp
         src/actions/Heal.cpp

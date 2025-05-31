@@ -10,20 +10,19 @@
 
 class Heal {
 public:
-    Heal(string name, int minHeal, int maxHeal, int mpCost) : name{name}, minHeal{minHeal}, maxHeal{maxHeal} {};
-    void use(Battler& battler);
+    Heal(const string& name, const int minHeal, const int maxHeal, const int mpCost) : name{name}, minHeal{minHeal}, maxHeal{maxHeal}, mpCost{mpCost} {};
+    void use(Battler& user) const;
 
-    const string& getName();
-    const int getMinHeal();
-    const int getMaxHeal();
-    const int getMpCost();
+    [[nodiscard]] const string& getName() const {return name;}
+    [[nodiscard]] int getMinHeal() const {return minHeal;}
+    [[nodiscard]] int getMaxHeal() const {return maxHeal;}
+    [[nodiscard]] int getMpCost() const {return mpCost;}
+
 private:
     const string& name;
-    int minHeal;
-    int maxHeal;
-    int mpCost;
+    const int minHeal;
+    const int maxHeal;
+    const int mpCost;
 };
-
-
 
 #endif //HEAL_H

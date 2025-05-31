@@ -12,26 +12,21 @@ using namespace std;
 
 class Attack {
 public:
-    explicit Attack(const string& name, int minDamage, int maxDamage, int mpCost, int accuracy);
-    void use(Battler& user, Battler& target) const;
-    string FlavourTextPicker(const string list[], size_t size);
+    explicit Attack(string name, const int minDamage, const int maxDamage, const int mpCost, const int accuracy) : name{std::move(name)}, minDamage{minDamage}, maxDamage{maxDamage}, mpCost{mpCost}, accuracy{accuracy}{}
 
-    const int getMinDamage() const;
-    const int getMaxDamage() const;
-    const int getMpCost() const;
-    const int getAccuracy() const;
+    void use(Battler& user, Battler& target) const;
+
+    [[nodiscard]] int getMinDamage() const {return minDamage;}
+    [[nodiscard]] int getMaxDamage() const {return maxDamage;}
+    [[nodiscard]] int getMpCost() const {return mpCost;}
+    [[nodiscard]] int getAccuracy() const {return accuracy;}
 
 private:
     string name;
-    int minDamage = 1;
-    int maxDamage = 1;
-    int mpCost = 0;
-    int accuracy = 100;
-
-    string meleeAttackText[2] = {"PUNCH", "KICK"};
-    string magicText[2] = {"FIREBALL", "LIGHT MAGIC"};
-    string darkMeleeAttackText[2] = {"BITE", "SCRATCH"};
-    string darkMagicText[2] = {"DARK MAGIC", "LIGHTNING"};
+    const int minDamage;
+    const int maxDamage ;
+    const int mpCost;
+    const int accuracy;
 };
 
 #endif //ATTACK_H

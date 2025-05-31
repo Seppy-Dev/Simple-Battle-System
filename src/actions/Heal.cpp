@@ -6,35 +6,19 @@
 
 #include <iostream>
 
-void Heal::use(Battler& battler)
-{
-    if (battler.getMp() < mpCost)
-        cout << battler.getName() << " doesn't have enough MP to use" << name << endl << endl;
-
-    else if (battler.isFullHp())
-        cout << battler.getName() << "'s HP is already full!" << endl << endl;
-
-    else
-    {
-        int amount = minHeal + rand() % (maxHeal - minHeal + 1);
-        battler.recoverHp(amount);
-        battler.reduceMp(mpCost);
-        cout << battler.getName() << " healed " << amount << " HP!" << endl << endl;
+void Heal::use(Battler& user) const {
+    if (user.getMp() < mpCost) {
+        cout << user.getName() << " doesn't have enough MP to use" << name << endl << endl;
     }
-}
 
-const int Heal::getMaxHeal() {
-    return maxHeal;
-}
+    else if (user.isFullHp()) {
+        cout << user.getName() << "'s HP is already full!" << endl << endl;
+    }
 
-const int Heal::getMinHeal() {
-    return minHeal;
-}
-
-const int Heal::getMpCost() {
-    return mpCost;
-}
-
-const string &Heal::getName() {
-    return name;
+    else {
+        const int amount = minHeal + rand() % (maxHeal - minHeal + 1);
+        user.recoverHp(amount);
+        user.reduceMp(mpCost);
+        cout << user.getName() << " healed " << amount << " HP!" << endl << endl;
+    }
 }

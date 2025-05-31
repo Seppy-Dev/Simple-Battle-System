@@ -10,18 +10,17 @@
 
 class Recover {
 public:
-    Recover(const string name, int minRecover, int maxRecover) : name{name}, minRecover{minRecover}, maxRecover{maxRecover} {};
-    void use(Battler& user);
+    Recover(const string &name, const int minRecover, const int maxRecover) : name{name}, minRecover{minRecover}, maxRecover{maxRecover} {};
+    void use(Battler& user) const;
 
-    const string& getName();
-    const int getMinRecover();
-    const int getMaxRecover();
+    [[nodiscard]] const string& getName() const {return name;}
+    [[nodiscard]] int getMinRecover() const {return minRecover;}
+    [[nodiscard]] int getMaxRecover() const {return maxRecover;}
+
 private:
     const string& name;
     int minRecover;
     int maxRecover;
 };
-
-
 
 #endif //MEDITATE_H
