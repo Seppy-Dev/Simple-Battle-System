@@ -6,15 +6,12 @@
 #define BATTLER_H
 
 #include <string>
-#include <utility>
-
-using namespace std;
 
 class Battler {
 public:
-    explicit Battler(string name, const int maxHp, const int maxMp) : name{std::move(name)}, maxHp{maxHp}, maxMp{maxMp}, hp{maxHp}, mp{maxMp} {};
+    explicit Battler(std::string name, int maxHp = 100, int maxMp = 100, int speed = 10);
 
-    [[nodiscard]] const string& getName() const {return name;}
+    [[nodiscard]] const std::string& getName() const {return name;}
     [[nodiscard]] int getHp() const {return hp;}
     [[nodiscard]] int getMp() const {return mp;}
     [[nodiscard]] int getMaxHp() const {return maxHp;}
@@ -29,7 +26,7 @@ public:
     void recoverHp(int amount);
     void recoverMp(int amount);
 private:
-    const string name;
+    const std::string name;
     const int maxHp;
     const int maxMp;
     int hp;
