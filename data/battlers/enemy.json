@@ -1,0 +1,13 @@
+{
+  "name": "ENEMY",
+  "stats": {
+    "maxHp": 100,
+    "maxMp": 100,
+    "speed": 8
+  },
+  "actions": {
+    "attacks": ["bite"],
+    "magic": ["darkMagic"],
+    "abilities": ["meditate"]
+  }
+}

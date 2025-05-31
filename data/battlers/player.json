@@ -1,0 +1,13 @@
+{
+  "name": "PLAYER",
+  "stats": {
+    "maxHp": 100,
+    "maxMp": 100,
+    "speed": 10
+  },
+  "actions": {
+    "attacks": ["punch"],
+    "magic": ["fireball", "heal"],
+    "abilities": ["meditate"]
+  }
+}
