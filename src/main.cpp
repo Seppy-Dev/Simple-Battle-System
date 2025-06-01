@@ -1,121 +1,18 @@
 #include <iostream>
-#include <chrono>
-#include <thread>
+#include "battle/BattleManager.h"
 
-#include "actions/Attack.h"
-#include "entities/Battler.h"
-#include "actions/Heal.h"
-#include "actions/Recover.h"
-
-using namespace std;
-
-bool battleActive = true;
-
-Battler player("PLAYER", 100, 100);
-Battler enemy("ENEMY", 100, 100);
-
-Attack melee("PUNCH", 5, 12, 0, 90);
-Attack magic("MAGIC", 15, 20, 15, 70);
-Attack darkMelee("BITE", 8, 14, 0, 80);
-Attack darkMagic("DARK MAGIC", 17, 22, 15, 60);
-
-Heal heal("HEAL", 15, 25, 20);
-Heal bigHeal("BIG HEAL", 30, 50, 35);
-Heal maxHeal("SUPER HEAL", 70, 100, 50);
-
-Recover recover("MEDITATE", 10, 15);
-Recover zenZone("ZEN ZONE", 20, 30);
-
-
-//------------------------//
-// Basic Battle Functions //
-//------------------------//
-void EndBattle(const Battler& winner) {
-    cout << winner.getName() << " wins!";
-    battleActive = false;
-}
-
-
-//-----------------------//
-// Enemy action selector // //TODO: Clear this fucking shit up oh my god
-//-----------------------//
-void EnemyTurn() {
-    int enemyActions[] = {1,2,3,4};
-
-    if (enemy.getMp() < darkMagic.getMpCost()) {
-        enemyActions[1] = 0;
-    }
-    if (enemy.getMp() < heal.getMpCost()) {
-        enemyActions[2] = 0;
-    }
-    if (enemy.getHp() > 70) {
-        enemyActions[2] = 0;
-    }
-    if (enemy.getMp() > 20) {
-        enemyActions[3] = 0;
-    }
-
-    int enemyAction = 0;
-    while (enemyAction == 0) {
-        if (int rng = enemyActions[rand() % size(enemyActions)]; rng != 0)
-        {
-            enemyAction = rng;
-            break;
-        }
-    }
-
-    switch (enemyAction) {
-        case 1: darkMelee.use(enemy, player);
-            break;
-
-        case 2: darkMagic.use(enemy, player);
-            break;
-
-        case 3: heal.use(enemy);
-            break;
-
-        case 4: recover.use(enemy);
-            break;
-
-        default:
-        cout << "Enemy action failed! (" << enemyAction << ")" << endl << endl;
-    }
-}
-
-
-// //-----------//
-// // Menu area //
-// //-----------//
-// void BattleMenu() {
-//     while (battleActive) {
-//
-//         this_thread::sleep_for(chrono::seconds(1));
-//
-//
-//
-//         if (!enemy.isAlive()) {
-//             EndBattle(player);
-//         }
-//         this_thread::sleep_for(chrono::seconds(1));
-//
-//         if (battleActive) {
-//             EnemyTurn();
-//         }
-//
-//         this_thread::sleep_for(chrono::seconds(1));
-//
-//         if (!player.isAlive()) {
-//             EndBattle(enemy);
-//         }
-//     }
-// }
-
-
-//------------------//
-// Game start & end //
-//------------------//
 int main() {
     srand(time(nullptr));
-    system("pause");
-    return 0;
+    BattleManager::loadBattlerFromJson(BattleManager::getPlayer());
+    BattleManager::loadBattlerFromJson(BattleManager::getEnemy());
+
+    BattleManager::startBattle();
+
+    while (BattleManager::isActive()) {
+        BattleManager::playerAction();
+        BattleManager::enemyAction();
+        BattleManager::executeTurn();
+    }
 }
+
+
