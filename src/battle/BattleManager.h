@@ -9,20 +9,23 @@
 
 class BattleManager {
 public:
-    explicit BattleManager(Battler& player, Battler& enemy);
+    static void loadBattlerFromJson(Battler& battler);
 
-    void executeTurn();
-    void endBattle(const Battler& winner);
+    static void startBattle();
+    static void playerAction();
+    static void enemyAction();
+    static void executeTurn();
+    static void endBattle(const Battler& winner);
 
-    [[nodiscard]] bool isActive() const {return battleActive;}
-    [[nodiscard]] Battler getPlayer() const {return player;}
-    [[nodiscard]] Battler getEnemy() const {return enemy;}
+    [[nodiscard]] static bool isActive() {return battleActive;}
+    [[nodiscard]] static Battler& getPlayer() {return player;}
+    [[nodiscard]] static Battler& getEnemy() {return enemy;}
 
 private:
-    const Battler& player;
-    const Battler& enemy;
-    bool battleActive;
-    int turns;
+    static Battler player;
+    static Battler enemy;
+    static bool battleActive;
+    static int turns;
 };
 
 #endif //BATTLEMANAGER_H
