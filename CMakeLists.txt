@@ -24,3 +24,5 @@ set(HEADER_FILES
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
 set(CMAKE_EXE_LINKER_FLAGS "-static")
+
+include_directories(include)
