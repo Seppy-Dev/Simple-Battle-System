@@ -13,7 +13,8 @@ class BattleMenu {
 public:
     BattleMenu::BattleMenu(BattleManager& battleManager, Battler& player, Battler& enemy) : player{player}, enemy{enemy}, battleManager{battleManager} {}
 
-    void printStats(Battler& battler);
+    void printStats(const Battler& battler) ;
+    void listActions();
 
 
 private:
