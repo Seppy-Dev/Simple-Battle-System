@@ -12,9 +12,8 @@
 
 class Battler {
 public:
-    explicit Battler(const nlohmann::json& data);
-
     void addAction(const std::string& actionName);
+    void loadBattler(const nlohmann::json& data);
 
     [[nodiscard]] const std::string& getName() const {return name;}
     [[nodiscard]] int getHp() const {return hp;}
