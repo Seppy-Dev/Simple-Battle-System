@@ -9,7 +9,8 @@
 
 class BattleManager {
 public:
-    static void loadBattlerFromJson(Battler& battler);
+    static void assignPlayer();
+    static void assignEnemy();
 
     static void startBattle();
     static void playerAction();
@@ -18,10 +19,9 @@ public:
     static void endBattle(const Battler& winner);
 
     [[nodiscard]] static bool isActive() {return battleActive;}
-    [[nodiscard]] static Battler& getPlayer() {return player;}
-    [[nodiscard]] static Battler& getEnemy() {return enemy;}
 
 private:
+    std::string battlerPath = "../../data/battlers/";
     static Battler player;
     static Battler enemy;
     static bool battleActive;
