@@ -6,6 +6,9 @@
 #define BATTLER_H
 
 #include <string>
+#include <unordered_map>
+#include "../actions/Attack.h"
+#include "../actions/Recovery.h"
 #include <nlohmann/json.hpp>
 
 class Battler {
@@ -41,5 +44,7 @@ private:
     int hp;
     int mp;
     int speed;
+    std::unordered_map<std::string, Attack> attacks;
+    std::unordered_map<std::string, Recovery> recoveries;
 };
 #endif //BATTLER_H
