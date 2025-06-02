@@ -15,7 +15,7 @@ void Battler::addAction(const std::string& actionName) {
    actions.emplace(actionName, Action(actionData));
 }
 
-Battler::Battler(const nlohmann::json& data) {
+void Battler::loadBattler(const nlohmann::json& data) {
    name = data.value("name", "battler");
    maxHp = data.value("maxHp", 100);
    maxMp = data.value("maxMp", 100);
