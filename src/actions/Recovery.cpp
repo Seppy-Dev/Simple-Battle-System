@@ -2,11 +2,11 @@
 // Created by Skye on 30/05/2025.
 //
 
-#include "Recover.h"
+#include "Recovery.h"
 
 #include <iostream>
 
-void Recover::use(Battler& user) const {
+void Recovery::use(Battler& user) const {
     if (user.isFullMp()) {
         cout << user.getName() << "'s MP is already full!" << endl << endl;
     }

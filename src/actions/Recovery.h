@@ -8,9 +8,9 @@
 #include "../entities/Battler.h"
 
 
-class Recover {
+class Recovery {
 public:
-    Recover(const string &name, const int minRecover, const int maxRecover) : name{name}, minRecover{minRecover}, maxRecover{maxRecover} {};
+    Recovery(const string &name, const int minRecover, const int maxRecover) : name{name}, minRecover{minRecover}, maxRecover{maxRecover} {};
     void use(Battler& user) const;
 
     [[nodiscard]] const string& getName() const {return name;}
