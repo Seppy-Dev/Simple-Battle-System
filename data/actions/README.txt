@@ -58,10 +58,10 @@ Valid types are: "ATTACK", and "RECOVERY" (more may be added in future updates)
                     (If these properties are not set, action will only fire once)
                     [Default Value: 1]
 
-"lifeDrainPercent": 50, <- The percentage of damage dealt by the action that will become HP recovery for the user
+"hpDrainPercent": 50, <- The percentage of damage dealt by the action that will become HP recovery for the user
                            [Default Value: 0]
 
-"manaDrainPercent": 50, <- The percentage of damage dealt by the action that will become MP recovery for the user
+"mpDrainPercent": 50, <- The percentage of damage dealt by the action that will become MP recovery for the user
                            [Default Value: 0]
 
 
