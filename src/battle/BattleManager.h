@@ -16,8 +16,10 @@ public:
     static void assignEnemy();
 
     static void startBattle();
-    static void playerAction();
-    static void enemyAction();
+
+    static Action playerAction();
+
+    static Action enemyAction();
     static void executeTurn();
     static void endBattle(const Battler& winner);
 
