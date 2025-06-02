@@ -1,0 +1,7 @@
+{
+"type": "ATTACK",
+"category": "NULL_CATEGORY",
+"name": "ATTACK",
+"minDamage": 10,
+"maxDamage": 15
+}
