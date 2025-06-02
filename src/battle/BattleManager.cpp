@@ -29,7 +29,7 @@ void BattleManager::assignPlayer() {
         nlohmann::json battlerData = nlohmann::json::parse(file);
         file.close();
         player.loadBattler(battlerData);
-        //system("cls");
+        system("cls");
         break;
     }
 }
@@ -60,13 +60,26 @@ void BattleManager::startBattle() {
     battleActive = true;
 }
 
-void BattleManager::playerAction() {
+Action BattleManager::playerAction() {
+    //get action reference from player
+    //return that action reference
 }
 
-void BattleManager::enemyAction() {
+Action BattleManager::enemyAction() {
+    //get action reference from enemy
+    //return that action reference
 }
 
 void BattleManager::executeTurn() {
+    //compare priority level of both attacks
+    //if priority is same, compare speed of users
+    //if speed is the same, choose randomly (THIS CAN ALL BE ONE TURN ORDER CALCULATION FUNCTION)
+
+    //execute fastest attack first
+    //check if target was killed, if so run endBattle
+
+    //execute other attack
+    //check if target was killed, if so run endBattle
 
     turns++;
 }
