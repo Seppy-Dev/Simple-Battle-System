@@ -4,6 +4,7 @@
 
 #include "Battler.h"
 #include <fstream>
+#include <iostream>
 
 void Battler::addAction(const std::string& actionName) {
    const std::string filePath = "../../data/actions/" + actionName + ".json";
@@ -25,7 +26,7 @@ void Battler::loadBattler(const nlohmann::json& data) {
 
    if (data.contains("actions")) {
       for (const auto& actionName : data["actions"]) {
-         addAction(actionName.dump());
+         addAction(actionName.get<std::string>());
       }
    }
 }

@@ -7,18 +7,15 @@
 
 #include "../entities/Battler.h"
 
-class BattleManager;
-
 class BattleMenu {
 public:
-    BattleMenu::BattleMenu(BattleManager& battleManager, Battler& player, Battler& enemy) : player{player}, enemy{enemy}, battleManager{battleManager} {}
+    BattleMenu(Battler& player, Battler& enemy) : player{player}, enemy{enemy} {}
 
     void printStats(const Battler& battler) ;
     void listActions();
 
 
 private:
-    BattleManager& battleManager;
     Battler& player;
     Battler& enemy;
 };

@@ -5,8 +5,19 @@
 #include "Action.h"
 
 Action::Action(const nlohmann::json& data) {
+    if (!data.contains("type")) {
+        throw std::invalid_argument("Action file missing required field: type");
+    }
     type = getType(data["type"]);
+
+    if (!data.contains("category")) {
+        throw std::invalid_argument("Action file missing required field: category");
+    }
     category = getCategory(data["category"]);
+
+    if (!data.contains("name")) {
+        throw std::invalid_argument("Action file missing required field: name");
+    }
     name = data["name"];
 
     mpCost = data.value("mpCost", 0);

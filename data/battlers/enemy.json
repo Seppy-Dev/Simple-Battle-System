@@ -1,10 +1,8 @@
 {
   "name": "ENEMY",
-  "stats": {
-    "maxHp": 150,
-    "maxMp": 50,
-    "speed": 8
-  },
+  "maxHp": 150,
+  "maxMp": 50,
+  "speed": 8,
   "actions":
   [
     "fireball",

@@ -7,7 +7,10 @@
 #include <iostream>
 #include <fstream>
 
-using json = nlohmann::json;
+Battler BattleManager::player;
+Battler BattleManager::enemy;
+bool BattleManager::battleActive = false;
+int BattleManager::turns = 0;
 
 void BattleManager::assignPlayer() {
     std::cout << "Please type the name of the battler you wish to use\n"
@@ -23,7 +26,9 @@ void BattleManager::assignPlayer() {
             std::cout << "Error: No file found!" << std::endl;
             continue;
         }
-        player.loadBattler(filePath);
+        nlohmann::json battlerData = nlohmann::json::parse(file);
+        file.close();
+        player.loadBattler(battlerData);
         system("cls");
         break;
     }
@@ -43,7 +48,8 @@ void BattleManager::assignEnemy() {
             std::cout << "Error: No file found!" << std::endl;
             continue;
         }
-        enemy.loadBattler(filePath);
+        nlohmann::json battlerData = nlohmann::json::parse(file);
+        enemy.loadBattler(battlerData);
         system("cls");
         break;
     }
