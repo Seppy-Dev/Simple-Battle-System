@@ -1,13 +1,12 @@
 {
   "name": "ENEMY",
   "stats": {
-    "maxHp": 100,
-    "maxMp": 100,
+    "maxHp": 150,
+    "maxMp": 50,
     "speed": 8
   },
   "actions": {
-    "attacks": ["bite"],
-    "magic": ["darkMagic"],
+    "magic": ["fireball", "heal"],
     "abilities": ["meditate"]
   }
 }
