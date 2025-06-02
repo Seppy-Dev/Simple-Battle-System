@@ -3,6 +3,7 @@
 #include <string>
 #include "nlohmann/json.hpp"
 
+class Battler;
 
 class Action {
 public:
@@ -25,10 +26,12 @@ public:
         MP
     };
 
-    static Type getType(const nlohmann::json& jsonProperty);
-    static Category getCategory(const nlohmann::json& jsonProperty);
-    static TargetStat getTargetStat(const nlohmann::json& jsonProperty, TargetStat defaultStat);
-    static RecoveryType getRecoveryType(const nlohmann::json& jsonProperty, RecoveryType defaultType);
+    Type getType(const nlohmann::json& jsonProperty);
+    Category getCategory(const nlohmann::json& jsonProperty);
+    TargetStat getTargetStat(const nlohmann::json& jsonProperty, TargetStat defaultStat);
+    RecoveryType getRecoveryType(const nlohmann::json& jsonProperty, RecoveryType defaultType);
+
+    void use(Battler& user, Battler& target) const;
 
 private:
     Type type;
@@ -55,6 +58,8 @@ private:
 
     void loadAttackProperties(const nlohmann::json& data);
     void loadRecoveryProperties(const nlohmann::json& data);
+
+    void doAttack(Battler& user, Battler& target) const;
 };
 
 

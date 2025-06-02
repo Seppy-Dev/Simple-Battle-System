@@ -3,6 +3,8 @@
 //
 
 #include "Action.h"
+#include "../entities/Battler.h"
+#include <iostream>
 
 Action::Action(const nlohmann::json& data) {
     if (!data.contains("type")) {
@@ -63,8 +65,8 @@ void Action::loadAttackProperties(const nlohmann::json& data) {
     targetStat = getTargetStat(data.value("targetStat", "HP"), TargetStat::HP);
     minDamage = data.value("minDamage", 1);
     maxDamage = data.value("maxDamage", minDamage);
-    accuracy = data.value("accuracy", 100);
-    critRate = data.value("critRate", 10);
+    accuracy = std::clamp(data.value("accuracy", 100), 0, 100);
+    critRate = std::clamp(data.value("critRate", 10), 0 , 100);
     multiHitMin = data.value("multiHitMin", 1);
     multiHitMax = data.value("multiHitMax", 1);
     hpDrainPercent = data.value("hpDrainPercent", 0);
@@ -75,4 +77,84 @@ void Action::loadRecoveryProperties(const nlohmann::json& data) {
     minRecovery = data.value("minRecovery", 1);
     maxRecovery = data.value("maxRecovery", minRecovery);
     recoveryType = getRecoveryType(data.value("recoveryType", "HP"), RecoveryType::HP);
+}
+
+bool MissChance(int accuracy)
+{
+    int rng = 1 + (rand() % 100);
+    if (rng > accuracy)
+        return true;
+    return false;
+}
+bool critChance(int critRate)
+{
+    int rng = 1 + (rand() % 100);
+    if (rng > critRate)
+        return true;
+    return false;
+}
+
+void Action::doAttack(Battler& user, Battler& target) const {
+    if (user.getMp() < mpCost)
+        std::cout << user.getName() << " doesn't have enough MP to use " << name << "!\n" << std::endl;
+    if (user.getHp() < hpCost)
+        std::cout << user.getName() << " doesn't have enough HP to use " << name << "!\n" << std::endl;
+    
+    else if (MissChance(accuracy)) {
+        user.reduceMp(mpCost);
+        std::cout << user.getName() << " used " << name << "... but missed!\n" << std::endl;
+    }
+    else if (MissChance(accuracy)) {
+        user.reduceHp(hpCost);
+        std::cout << user.getName() << " used " << name << "... but missed!\n" << std::endl;
+    }
+
+    else {
+        user.reduceMp(mpCost);
+        user.reduceHp(hpCost);
+        int hitTimes;
+        hitTimes = multiHitMin + (rand() % (multiHitMax - multiHitMin + 1));
+        for (int hit = 0; hit < hitTimes; hit++) {
+            int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
+            if (critChance(critRate)) {
+                damage *= 1.5;
+                std::cout << "A CRITITCAL HIT!" << std::endl;
+            }
+            
+            if (targetStat == TargetStat::HP) {
+                target.reduceHp(damage);
+                std::cout << user.getName() << " used " << name << " and dealt " << damage << " MP damage!\n" << std::endl;
+            }
+            else if (targetStat == TargetStat::MP) {
+                target.reduceMp(damage);
+                std::cout << user.getName() << " used " << name << " and dealt " << damage << " HP damage!\n" << std::endl;
+            }
+
+            if (hpDrainPercent != 0) {
+                int recoverAmount = ((damage * hpDrainPercent) / 100);
+                user.recoverHp(recoverAmount);
+                std::cout << user.getName() << " stole " << recoverAmount << "HP!" << std::endl;
+            }
+            if (mpDrainPercent != 0) {
+                int recoverAmount = ((damage * mpDrainPercent) / 100);
+                user.recoverMp(recoverAmount);
+                std::cout << user.getName() << " stole " << recoverAmount << "MP!" << std::endl;
+            }
+        }
+    }
+}
+
+void doRecovery(Battler& user) {
+
+}
+
+void Action::use(Battler& user, Battler& target) const {
+    switch (type) {
+        case Type::ATTACK:
+            doAttack(user, target);
+            break;
+        case Type::RECOVERY:
+            doRecovery(user);
+            break;
+    }
 }
