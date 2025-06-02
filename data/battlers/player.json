@@ -5,8 +5,10 @@
     "maxMp": 100,
     "speed": 10
   },
-  "actions": {
-    "magic": ["fireball", "heal"],
-    "abilities": ["meditate"]
-  }
+  "actions":
+  [
+    "fireball",
+    "heal",
+    "meditate"
+  ]
 }
