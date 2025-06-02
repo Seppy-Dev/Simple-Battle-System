@@ -5,10 +5,12 @@
 #ifndef ENEMYAI_H
 #define ENEMYAI_H
 
-
+class Battler;
+class Action;
 
 class EnemyAI {
-    void EnemyTurn();
+public:
+    Action& EnemyTurn(Battler& battler);
 };
 
 
