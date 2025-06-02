@@ -46,6 +46,7 @@ Action::Type Action::getType(const nlohmann::json& jsonProperty) {
 Action::Category Action::getCategory(const nlohmann::json& jsonProperty) {
     if (jsonProperty == "MAGIC") return Category::MAGIC;
     if (jsonProperty == "ABILITY") return Category::ABILITY;
+    if (jsonProperty == "NULL_CATEGORY" || jsonProperty == "NULL") return Category::NULL_CATEGORY;
     throw std::invalid_argument("Invalid category: " + jsonProperty.dump());
 }
 
@@ -79,15 +80,13 @@ void Action::loadRecoveryProperties(const nlohmann::json& data) {
     recoveryType = getRecoveryType(data.value("recoveryType", "HP"), RecoveryType::HP);
 }
 
-bool MissChance(int accuracy)
-{
+bool MissChance(int accuracy) {
     int rng = 1 + (rand() % 100);
     if (rng > accuracy)
         return true;
     return false;
 }
-bool critChance(int critRate)
-{
+bool critChance(int critRate) {
     int rng = 1 + (rand() % 100);
     if (rng > critRate)
         return true;
@@ -95,11 +94,13 @@ bool critChance(int critRate)
 }
 
 void Action::doAttack(Battler& user, Battler& target) const {
-    if (user.getMp() < mpCost)
+    if (user.getMp() < mpCost) {
         std::cout << user.getName() << " doesn't have enough MP to use " << name << "!\n" << std::endl;
-    if (user.getHp() < hpCost)
+    }
+    if (user.getHp() < hpCost) {
         std::cout << user.getName() << " doesn't have enough HP to use " << name << "!\n" << std::endl;
-    
+    }
+
     else if (MissChance(accuracy)) {
         user.reduceMp(mpCost);
         std::cout << user.getName() << " used " << name << "... but missed!\n" << std::endl;
@@ -112,8 +113,10 @@ void Action::doAttack(Battler& user, Battler& target) const {
     else {
         user.reduceMp(mpCost);
         user.reduceHp(hpCost);
+
         int hitTimes;
         hitTimes = multiHitMin + (rand() % (multiHitMax - multiHitMin + 1));
+
         for (int hit = 0; hit < hitTimes; hit++) {
             int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
             if (critChance(critRate)) {
