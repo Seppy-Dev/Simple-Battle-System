@@ -6,6 +6,7 @@
 #define BATTLEMANAGER_H
 
 #include "../entities/Battler.h"
+#include "../actions/Action.h"
 
 class BattleManager {
 public:
