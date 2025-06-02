@@ -7,20 +7,14 @@
 
 #include <string>
 #include <unordered_map>
-#include "../actions/Attack.h"
-#include "../actions/Recovery.h"
 #include <nlohmann/json.hpp>
+#include "../actions/Action.h"
 
 class Battler {
 public:
-    explicit Battler();
+    explicit Battler(const nlohmann::json& data);
 
-    const std::string& setName(std::string name);
-    int setHp(int hp);
-    int setMp(int mp);
-    int setMaxHp(int maxHp);
-    int setMaxMp(int maxMp);
-    int setSpeed(int speed);
+    void addAction(const std::string& actionName);
 
     [[nodiscard]] const std::string& getName() const {return name;}
     [[nodiscard]] int getHp() const {return hp;}
@@ -44,7 +38,6 @@ private:
     int hp;
     int mp;
     int speed;
-    std::unordered_map<std::string, Attack> attacks;
-    std::unordered_map<std::string, Recovery> recoveries;
+    std::unordered_map<std::string, Action> actions;
 };
 #endif //BATTLER_H
