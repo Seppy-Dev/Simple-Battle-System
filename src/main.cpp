@@ -3,8 +3,8 @@
 
 int main() {
     srand(time(nullptr));
-    BattleManager::loadBattlerFromJson(BattleManager::getPlayer());
-    BattleManager::loadBattlerFromJson(BattleManager::getEnemy());
+    BattleManager::assignPlayer();
+    BattleManager::assignEnemy();
 
     BattleManager::startBattle();
 
