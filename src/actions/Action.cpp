@@ -60,7 +60,7 @@ Action::RecoveryType Action::getRecoveryType(const nlohmann::json& jsonProperty,
 }
 
 void Action::loadAttackProperties(const nlohmann::json& data) {
-    targetStat = getTargetStat(data["targetStat"], TargetStat::HP);
+    targetStat = getTargetStat(data.value("targetStat", "HP"), TargetStat::HP);
     minDamage = data.value("minDamage", 1);
     maxDamage = data.value("maxDamage", minDamage);
     accuracy = data.value("accuracy", 100);
@@ -74,5 +74,5 @@ void Action::loadAttackProperties(const nlohmann::json& data) {
 void Action::loadRecoveryProperties(const nlohmann::json& data) {
     minRecovery = data.value("minRecovery", 1);
     maxRecovery = data.value("maxRecovery", minRecovery);
-    recoveryType = getRecoveryType(data["recoveryType"], RecoveryType::HP);
+    recoveryType = getRecoveryType(data.value("recoveryType", "HP"), RecoveryType::HP);
 }

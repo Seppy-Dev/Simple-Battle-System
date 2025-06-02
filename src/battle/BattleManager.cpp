@@ -18,9 +18,9 @@ void BattleManager::assignPlayer() {
               << "(Do NOT include the file path or .json)\n\n" << std::endl;
     while (true) {
         std::string input;
-                  std::cout << "Enter Battler Name: " << std::endl;
+        std::cout << "Enter Battler Name: " << std::endl;
         std::cin >> input;
-        const std::string filePath = "../../data/battlers/" + input + ".json";
+        const std::string filePath = "../data/battlers/" + input + ".json";
         std::ifstream file(filePath);
         if (!file.is_open()) {
             std::cout << "Error: No file found!" << std::endl;
@@ -29,7 +29,7 @@ void BattleManager::assignPlayer() {
         nlohmann::json battlerData = nlohmann::json::parse(file);
         file.close();
         player.loadBattler(battlerData);
-        system("cls");
+        //system("cls");
         break;
     }
 }
@@ -42,15 +42,16 @@ void BattleManager::assignEnemy() {
         std::string input;
         std::cout << "Enter Battler Name: " << std::endl;
         std::cin >> input;
-        const std::string filePath = "../../data/battlers/" + input + ".json";
+        const std::string filePath = "../data/battlers/" + input + ".json";
         std::ifstream file(filePath);
         if (!file.is_open()) {
             std::cout << "Error: No file found!" << std::endl;
             continue;
         }
         nlohmann::json battlerData = nlohmann::json::parse(file);
+        file.close();
         enemy.loadBattler(battlerData);
-        system("cls");
+        //system("cls");
         break;
     }
 }

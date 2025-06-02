@@ -7,13 +7,23 @@
 #include <iostream>
 
 void Battler::addAction(const std::string& actionName) {
-   const std::string filePath = "../../data/actions/" + actionName + ".json";
+   const std::string filePath = "../data/actions/" + actionName + ".json";
+   std::cout << "Attempting to load action from: " << filePath << std::endl;
+
    std::ifstream file(filePath);
    if (!file.is_open()) {
       throw std::runtime_error("Could not open action file: " + filePath);
    }
-   const nlohmann::json actionData = nlohmann::json::parse(file);
-   actions.emplace(actionName, Action(actionData));
+   try {
+      const nlohmann::json actionData = nlohmann::json::parse(file);
+      file.close();
+      std::cout << "Loaded JSON data:" << actionData.dump(2) << std::endl;
+      actions.emplace(actionName, Action(actionData));
+   }
+   catch (const std::exception& e) {
+      std::cout << "Error creating action: " << e.what() << std::endl;
+      throw;
+   }
 }
 
 void Battler::loadBattler(const nlohmann::json& data) {
