@@ -15,7 +15,8 @@ public:
     };
     enum class Category {
         MAGIC,
-        ABILITY
+        ABILITY,
+        NULL_CATEGORY
     };
     enum class TargetStat {
         HP,
