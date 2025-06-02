@@ -18,7 +18,7 @@ void BattleManager::assignPlayer() {
               << "(Do NOT include the file path or .json)\n\n" << std::endl;
     while (true) {
         std::string input;
-        std::cout << "Enter Battler Name: " << std::endl;
+        std::cout << "Enter Battler Name: ";
         std::cin >> input;
         const std::string filePath = "../data/battlers/" + input + ".json";
         std::ifstream file(filePath);
@@ -40,7 +40,7 @@ void BattleManager::assignEnemy() {
               << "(Do NOT include the file path or .json)\n\n" << std::endl;
     while (true) {
         std::string input;
-        std::cout << "Enter Battler Name: " << std::endl;
+        std::cout << "Enter Battler Name: ";
         std::cin >> input;
         const std::string filePath = "../data/battlers/" + input + ".json";
         std::ifstream file(filePath);
