@@ -60,6 +60,7 @@ private:
     void loadRecoveryProperties(const nlohmann::json& data);
 
     void doAttack(Battler& user, Battler& target) const;
+    void doRecovery(Battler& user) const;
 };
 
 

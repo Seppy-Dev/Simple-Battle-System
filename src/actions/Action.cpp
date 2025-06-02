@@ -133,19 +133,27 @@ void Action::doAttack(Battler& user, Battler& target) const {
             if (hpDrainPercent != 0) {
                 int recoverAmount = ((damage * hpDrainPercent) / 100);
                 user.recoverHp(recoverAmount);
-                std::cout << user.getName() << " stole " << recoverAmount << "HP!" << std::endl;
+                std::cout << user.getName() << " stole " << recoverAmount << " HP!" << std::endl;
             }
             if (mpDrainPercent != 0) {
                 int recoverAmount = ((damage * mpDrainPercent) / 100);
                 user.recoverMp(recoverAmount);
-                std::cout << user.getName() << " stole " << recoverAmount << "MP!" << std::endl;
+                std::cout << user.getName() << " stole " << recoverAmount << " MP!" << std::endl;
             }
         }
     }
 }
 
-void doRecovery(Battler& user) {
-
+void Action::doRecovery(Battler& user) const {
+    int amount = minRecovery + (rand() % (maxRecovery - minRecovery + 1));
+    if (recoveryType == RecoveryType::HP) {
+        user.recoverHp(amount);
+        std::cout << user.getName() << " used " << name << " and recovered " << amount << " HP!";
+    }
+    else if (recoveryType == RecoveryType::MP) {
+        user.recoverMp(amount);
+        std::cout << user.getName() << " used " << name << " and recovered " << amount << " MP!";
+    }
 }
 
 void Action::use(Battler& user, Battler& target) const {
