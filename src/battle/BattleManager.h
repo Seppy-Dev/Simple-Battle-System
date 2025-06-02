@@ -9,6 +9,9 @@
 
 class BattleManager {
 public:
+    static Battler player;
+    static Battler enemy;
+
     static void assignPlayer();
     static void assignEnemy();
 
@@ -22,8 +25,6 @@ public:
 
 private:
     std::string battlerPath = "../../data/battlers/";
-    static Battler player;
-    static Battler enemy;
     static bool battleActive;
     static int turns;
 };
