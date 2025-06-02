@@ -6,7 +6,6 @@
     "speed": 10
   },
   "actions": {
-    "attacks": ["punch"],
     "magic": ["fireball", "heal"],
     "abilities": ["meditate"]
   }
