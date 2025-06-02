@@ -3,20 +3,43 @@
 //
 
 #include "Battler.h"
+#include <fstream>
 
-Battler::Battler(string name, const int maxHp, const int maxMp, const int speed)
-: name{std::move(name)}, maxHp{maxHp}, maxMp{maxMp}, hp{maxHp}, mp{maxMp}, speed{speed} {};
+void Battler::addAction(const std::string& actionName) {
+   const std::string filePath = "../../data/actions/" + actionName + ".json";
+   std::ifstream file(filePath);
+   if (!file.is_open()) {
+      throw std::runtime_error("Could not open action file: " + filePath);
+   }
+   const nlohmann::json actionData = nlohmann::json::parse(file);
+   actions.emplace(actionName, Action(actionData));
+}
+
+Battler::Battler(const nlohmann::json& data) {
+   name = data.value("name", "battler");
+   maxHp = data.value("maxHp", 100);
+   maxMp = data.value("maxMp", 100);
+   hp = maxHp;
+   mp = maxMp;
+   speed = data.value("speed", 10);
+
+   if (data.contains("actions")) {
+      for (const auto& actionName : data["actions"]) {
+         addAction(actionName.dump());
+      }
+   }
+}
 
 void Battler::reduceHp(const int amount) {
-   hp = max(0, hp - amount);
+   hp = std::max(0, hp - amount);
 }
 void Battler::reduceMp(const int amount) {
-   mp = max(0, mp - amount);
+   mp = std::max(0, mp - amount);
 }
 void Battler::recoverHp(const int amount) {
-   hp = min(maxHp, hp + amount);
+   hp = std::min(maxHp, hp + amount);
 }
 void Battler::recoverMp(const int amount) {
-   mp = min(maxMp, mp + amount);
+   mp = std::min(maxMp, mp + amount);
 }
 
