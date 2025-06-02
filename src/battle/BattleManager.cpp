@@ -9,21 +9,44 @@
 
 using json = nlohmann::json;
 
-void loadBattlerFromJson(Battler& battler) {
-    const std::string path = "data/battlers/";
+void BattleManager::assignPlayer() {
+    std::cout << "Please type the name of the battler you wish to use\n"
+              << "Battler files should be .json files stored in data/battlers/\n"
+              << "(Do NOT include the file path or .json)\n\n" << std::endl;
+    while (true) {
+        std::string input;
+                  std::cout << "Enter Battler Name: " << std::endl;
+        std::cin >> input;
+        const std::string filePath = "../../data/battlers/" + input + ".json";
+        std::ifstream file(filePath);
+        if (!file.is_open()) {
+            std::cout << "Error: No file found!" << std::endl;
+            continue;
+        }
+        player.loadBattler(filePath);
+        system("cls");
+        break;
+    }
+}
 
-    std::cout << "Enter name of battler json file (do not include .json or file path!): " << std::endl;
-    std::string input;
-    std::cin >> input;
-
-    std::ifstream file(path + input + ".json");
-    const auto data = json::parse(file);
-    file.close();
-
-    battler.setName(data["name"]);
-    battler.setMaxHp(data["stats"]["maxHp"]);
-    battler.setMaxMp(data["stats"]["maxMp"]);
-    battler.setSpeed(data["stats"]["speed"]);
+void BattleManager::assignEnemy() {
+    std::cout << "Please type the name of the battler you wish to fight against\n"
+              << "Battler files should be .json files stored in data/battlers/\n"
+              << "(Do NOT include the file path or .json)\n\n" << std::endl;
+    while (true) {
+        std::string input;
+        std::cout << "Enter Battler Name: " << std::endl;
+        std::cin >> input;
+        const std::string filePath = "../../data/battlers/" + input + ".json";
+        std::ifstream file(filePath);
+        if (!file.is_open()) {
+            std::cout << "Error: No file found!" << std::endl;
+            continue;
+        }
+        enemy.loadBattler(filePath);
+        system("cls");
+        break;
+    }
 }
 
 void BattleManager::startBattle() {
