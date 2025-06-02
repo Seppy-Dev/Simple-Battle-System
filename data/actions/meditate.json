@@ -1,0 +1,8 @@
+{
+"type": "RECOVERY",
+"category": "ABILITY",
+"name": "Meditate",
+"recoveryType": "MP",
+"minRecovery": 10,
+"maxRecovery": 20
+}

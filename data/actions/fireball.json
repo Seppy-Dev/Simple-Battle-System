@@ -1,0 +1,9 @@
+{
+"type": "ATTACK",
+"category": "MAGIC",
+"name": "Fireball",
+"mpCost": 10,
+"minDamage": 15,
+"maxDamage": 30,
+"accuracy": 90
+}

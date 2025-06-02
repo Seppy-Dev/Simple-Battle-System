@@ -1,0 +1,8 @@
+{
+"type": "RECOVERY",
+"category": "MAGIC",
+"name": "Heal",
+"mpCost": 20,
+"minRecovery": 15,
+"maxRecovery": 25
+}
