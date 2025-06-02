@@ -9,17 +9,7 @@
 
 class BattleMenu {
 public:
-    BattleMenu(Battler& player, Battler& enemy) : player{player}, enemy{enemy} {}
-
-    void printStats(const Battler& battler) ;
-    void listActions();
-
-
-private:
-    Battler& player;
-    Battler& enemy;
+    static void printStats();
 };
-
-
 
 #endif //BATTLEMENU_H
