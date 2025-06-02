@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include <nlohmann/json.hpp>
 #include "../actions/Action.h"
+#include "../battle/EnemyAI.h"
 
 class Battler {
 public:
@@ -21,6 +22,7 @@ public:
     [[nodiscard]] int getMaxHp() const {return maxHp;}
     [[nodiscard]] int getMaxMp() const {return maxMp;}
     [[nodiscard]] int getSpeed() const {return speed;}
+    [[nodiscard]] EnemyAI getAi() const {return battlerAi;}
 
     [[nodiscard]] bool isAlive() const {return (hp > 0);}
     [[nodiscard]] bool isFullHp() const {return (hp == maxHp);}
@@ -32,11 +34,12 @@ public:
     void recoverMp(int amount);
 private:
     std::string name;
-    int maxHp;
-    int maxMp;
-    int hp;
-    int mp;
-    int speed;
+    int maxHp = 100;
+    int maxMp = 100;
+    int hp = maxHp;
+    int mp = maxMp;
+    int speed = 10;
     std::unordered_map<std::string, Action> actions;
+    EnemyAI battlerAi;
 };
 #endif //BATTLER_H
