@@ -7,19 +7,19 @@ set(SOURCE_FILES
         src/main.cpp
         src/actions/Attack.cpp
         src/entities/Battler.cpp
-        src/actions/Heal.cpp
-        src/actions/Recover.cpp
+        src/actions/Recovery.cpp
         src/battle/BattleMenu.cpp
         src/battle/BattleManager.cpp
+        src/actions/Action.cpp
 )
 
 set(HEADER_FILES
         src/actions/Attack.h
         src/entities/Battler.h
-        src/actions/Heal.h
-        src/actions/Recover.h
+        src/actions/Recovery.h
         src/battle/BattleMenu.h
         src/battle/BattleManager.h
+        src/actions/Action.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
