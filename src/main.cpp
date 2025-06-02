@@ -1,5 +1,6 @@
 #include <iostream>
 #include "battle/BattleManager.h"
+#include "battle/BattleMenu.h"
 
 int main() {
     srand(time(nullptr));
@@ -9,6 +10,7 @@ int main() {
     BattleManager::startBattle();
 
     while (BattleManager::isActive()) {
+        BattleMenu::printStats();
         BattleManager::playerAction();
         BattleManager::enemyAction();
         BattleManager::executeTurn();
