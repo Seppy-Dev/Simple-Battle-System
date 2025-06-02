@@ -50,6 +50,7 @@ void BattleManager::assignEnemy() {
 }
 
 void BattleManager::startBattle() {
+    battleActive = true;
 }
 
 void BattleManager::playerAction() {
@@ -65,5 +66,6 @@ void BattleManager::executeTurn() {
 
 void BattleManager::endBattle(const Battler& winner) {
     std::cout << "The winner is: " << winner.getName();
+    battleActive = false;
 }
 
