@@ -1,6 +1,7 @@
 #include <iostream>
 #include "battle/BattleManager.h"
 #include "battle/BattleMenu.h"
+#include "battle/EnemyAI.h"
 
 int main() {
     srand(time(nullptr));
@@ -11,8 +12,8 @@ int main() {
 
     while (BattleManager::isActive()) {
         BattleMenu::printStats();
-        BattleManager::playerAction();
-        BattleManager::enemyAction();
+        BattleMenu::mainBattleMenu();
+        //EnemyAI::chooseAction(BattleManager::getEnemy());
         BattleManager::executeTurn();
     }
 }
