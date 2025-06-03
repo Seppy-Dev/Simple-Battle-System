@@ -18,7 +18,15 @@ void Battler::addAction(const std::string& actionName) {
       const nlohmann::json actionData = nlohmann::json::parse(file);
       file.close();
       std::cout << "Loaded JSON data:" << actionData.dump(2) << std::endl;
-      actions.emplace(actionName, Action(actionData));
+
+      if (Action(actionData).getCategory() == Action::Category::MAGIC) {
+         magic.emplace(actionName, Action(actionData));
+         std::cout << "Sorted into MAGIC category";
+      }
+      if (Action(actionData).getCategory() == Action::Category::ABILITY) {
+         abilities.emplace(actionName, Action(actionData));
+         std::cout << "Sorted into ABILITIES category";
+      }
    }
    catch (const std::exception& e) {
       std::cout << "Error creating action: " << e.what() << std::endl;
