@@ -29,7 +29,7 @@ void BattleManager::assignPlayer() {
         nlohmann::json battlerData = nlohmann::json::parse(file);
         file.close();
         player.loadBattler(battlerData);
-        system("cls");
+        //system("cls");
         break;
     }
 }
@@ -60,15 +60,13 @@ void BattleManager::startBattle() {
     battleActive = true;
 }
 
-Action BattleManager::playerAction() {
-    //get action reference from player
-    //return that action reference
+void BattleManager::setPlayerAction(Action &action) {
+    playerAction = action;
+}
+void BattleManager::setEnemyAction(Action &action) {
+    enemyAction = action;
 }
 
-Action BattleManager::enemyAction() {
-    //get action reference from enemy
-    //return that action reference
-}
 
 void BattleManager::executeTurn() {
     //compare priority level of both attacks
@@ -80,7 +78,6 @@ void BattleManager::executeTurn() {
 
     //execute other attack
     //check if target was killed, if so run endBattle
-
     turns++;
 }
 
