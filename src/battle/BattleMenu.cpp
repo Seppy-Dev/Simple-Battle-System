@@ -87,3 +87,11 @@ void BattleMenu::magicMenu() {
         std::cin.ignore();
     }
 }
+
+void BattleMenu::abilityMenu() {
+    int listNumber = 1;
+    for (const std::pair action : player.getAbilityActions()) {
+        std::cout << listNumber << ". " << action.first << std::endl;
+        listNumber++;
+    }
+}
