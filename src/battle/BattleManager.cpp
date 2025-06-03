@@ -60,24 +60,52 @@ void BattleManager::startBattle() {
     battleActive = true;
 }
 
-void BattleManager::setPlayerAction(Action &action) {
+void BattleManager::setPlayerAction(const Action &action) {
     playerAction = action;
 }
-void BattleManager::setEnemyAction(Action &action) {
+void BattleManager::setEnemyAction(const Action &action) {
     enemyAction = action;
 }
 
 
+void playerFirst() {
+    BattleManager::getPlayerAction().use(BattleManager::getPlayer(), BattleManager::getEnemy());
+    BattleManager::getEnemyAction().use(BattleManager::getEnemy(), BattleManager::getPlayer());
+}
+
+void enemyFirst() {
+    BattleManager::getEnemyAction().use(BattleManager::getEnemy(), BattleManager::getPlayer());
+    BattleManager::getPlayerAction().use(BattleManager::getPlayer(), BattleManager::getEnemy());
+}
+
+void randomFirst() {
+    if (const int num = rand() % 1; num == 0) {
+        enemyFirst();
+    }
+    else {
+        playerFirst();
+    }
+}
+
 void BattleManager::executeTurn() {
-    //compare priority level of both attacks
-    //if priority is same, compare speed of users
-    //if speed is the same, choose randomly (THIS CAN ALL BE ONE TURN ORDER CALCULATION FUNCTION)
+    if (playerAction.getPriority() > enemyAction.getPriority()) {
+        playerFirst();
+    }
+    else if (playerAction.getPriority() < enemyAction.getPriority()) {
+        enemyFirst();
+    }
 
-    //execute fastest attack first
-    //check if target was killed, if so run endBattle
+    else if (player.getSpeed() > enemy.getSpeed()) {
+        playerFirst();
+    }
+    else if (player.getSpeed() < enemy.getSpeed()) {
+        enemyFirst();
+    }
 
-    //execute other attack
-    //check if target was killed, if so run endBattle
+    else {
+        randomFirst();
+    }
+
     turns++;
 }
 

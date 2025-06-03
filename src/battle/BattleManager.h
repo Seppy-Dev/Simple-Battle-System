@@ -22,13 +22,13 @@ public:
 
     [[nodiscard]] static bool isActive() {return battleActive;}
 
-    static void setPlayerAction(Action& action);
-    static void setEnemyAction(Action& action);
+    static void setPlayerAction(const Action& action);
+    static void setEnemyAction(const Action& action);
 
     static Battler& getPlayer() {return player;}
     static Battler& getEnemy() {return enemy;}
-    static Action& getPlayerAction() {return playerAction;}
-    static Action& getEnemyAction() {return enemyAction;}
+    const Action& getPlayerAction() const {return playerAction;}
+    const Action& getEnemyAction() const {return enemyAction;}
 
 private:
     std::string battlerPath = "../data/battlers/";
@@ -36,8 +36,8 @@ private:
     static int turns;
     static Battler player;
     static Battler enemy;
-    static Action& playerAction;
-    static Action& enemyAction;
+    Action& playerAction;
+    Action& enemyAction;
     static EnemyAI& enemyAi;
 };
 
