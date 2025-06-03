@@ -4,8 +4,8 @@
 
 #include "EnemyAI.h"
 
-Action& EnemyTurn(Battler& battler) {
-    Action& action;
-
+Action& EnemyAI::chooseAction(Battler& battler) {
+    Action action;
+    //TODO:  silly goober u gotta make the ai choose thing here smh smh
     return action;
 }
