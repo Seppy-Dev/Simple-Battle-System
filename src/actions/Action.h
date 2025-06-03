@@ -27,10 +27,24 @@ public:
         MP
     };
 
-    Type getType(const nlohmann::json& jsonProperty);
-    Category getCategory(const nlohmann::json& jsonProperty);
-    TargetStat getTargetStat(const nlohmann::json& jsonProperty, TargetStat defaultStat);
-    RecoveryType getRecoveryType(const nlohmann::json& jsonProperty, RecoveryType defaultType);
+    const Type& getType () const {return type;}
+    const Category& getCategory() const {return category;}
+    const std::string& getName() const {return name;}
+    const TargetStat& getTargetStat() const {return targetStat;}
+    const RecoveryType& getRecoveryType() const {return recoveryType;}
+    const int& getMpCost() const {return mpCost;}
+    const int& getHpCost() const {return hpCost;}
+    const int& getPriority() const {return priority;}
+    const int& getMinDamage() const {return minDamage;}
+    const int& getMaxDamage() const {return maxDamage;}
+    const int& getAccuracy() const {return accuracy;}
+    const int& getCritRate() const {return critRate;}
+    const int& getMultiHitMin() const {return multiHitMin;}
+    const int& getMultiHitMax() const {return multiHitMax;}
+    const int& getHpDrainPercent() const {return hpDrainPercent;}
+    const int& getMpDrainPercent() const {return mpDrainPercent;}
+    const int& getMinRecovery() const {return minRecovery;}
+    const int& getMaxRecovery() const {return maxRecovery;}
 
     void use(Battler& user, Battler& target) const;
 
@@ -59,6 +73,10 @@ private:
 
     void loadAttackProperties(const nlohmann::json& data);
     void loadRecoveryProperties(const nlohmann::json& data);
+    static Type loadType(const nlohmann::json& jsonProperty);
+    static Category loadCategory(const nlohmann::json& jsonProperty);
+    static TargetStat loadTargetStat(const nlohmann::json& jsonProperty, TargetStat defaultStat);
+    static RecoveryType loadRecoveryType(const nlohmann::json& jsonProperty, RecoveryType defaultType);
 
     void doAttack(Battler& user, Battler& target) const;
     void doRecovery(Battler& user) const;
