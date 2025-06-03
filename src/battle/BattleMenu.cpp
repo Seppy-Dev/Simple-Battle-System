@@ -56,3 +56,34 @@ void BattleMenu::mainBattleMenu() {
     }
 }
 
+
+void BattleMenu::magicMenu() {
+    std::vector<std::pair<::std::string, Action>> action_list;
+
+    int listNumber = 1;
+    for (const auto& action : player.getMagicActions()) {
+        action_list.push_back(action);
+        std::cout << listNumber << ". " << action.first << std::endl;
+        listNumber++;
+    }
+    while (true) {
+        std::cout << "Your choice (0 to return to main menu): ";
+        int choice;
+        std::cin >> choice;
+
+        if (choice == 0) {
+            return;
+        }
+
+        if (choice > 0 && choice <= action_list.size()) {
+            auto& selected_action = action_list[choice - 1];
+            BattleManager::setPlayerAction(selected_action.second);
+            return;
+        }
+
+
+        std::cout << "Invalid Option!" << std::endl;
+        std::cin.clear();
+        std::cin.ignore();
+    }
+}
