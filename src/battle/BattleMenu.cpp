@@ -6,17 +6,19 @@
 #include "BattleMenu.h"
 #include "BattleManager.h"
 
+Battler& player = BattleManager::getPlayer();
+Battler& enemy = BattleManager::getEnemy();
 
 void BattleMenu::printStats() {
     std::cout << "----------" << "\n"
-              << BattleManager::player.getName() << "\n"
-              << "HP: " << BattleManager::player.getHp() << "\n"
-              << "MP: " << BattleManager::player.getMp() << "\n"
+              << player.getName() << "\n"
+              << "HP: " << player.getHp() << "\n"
+              << "MP: " << player.getMp() << "\n"
               << "----------\n" <<  std::endl;
 
     std::cout << "----------" << "\n"
-              << BattleManager::enemy.getName() << "\n"
-              << "HP: " << BattleManager::enemy.getHp() << "\n"
-              << "MP: " << BattleManager::enemy.getMp() << "\n"
+              << enemy.getName() << "\n"
+              << "HP: " << enemy.getHp() << "\n"
+              << "MP: " << enemy.getMp() << "\n"
               << "----------\n" <<  std::endl;
 }
