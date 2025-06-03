@@ -10,12 +10,12 @@ Action::Action(const nlohmann::json& data) {
     if (!data.contains("type")) {
         throw std::invalid_argument("Action file missing required field: type");
     }
-    type = getType(data["type"]);
+    type = loadType(data["type"]);
 
     if (!data.contains("category")) {
         throw std::invalid_argument("Action file missing required field: category");
     }
-    category = getCategory(data["category"]);
+    category = loadCategory(data["category"]);
 
     if (!data.contains("name")) {
         throw std::invalid_argument("Action file missing required field: name");
@@ -34,7 +34,7 @@ Action::Action(const nlohmann::json& data) {
     }
 
 }
-Action::Type Action::getType(const nlohmann::json& jsonProperty) {
+Action::Type Action::loadType(const nlohmann::json& jsonProperty) {
     if (jsonProperty == "ATTACK") {
         return Type::ATTACK;
     }
@@ -43,27 +43,27 @@ Action::Type Action::getType(const nlohmann::json& jsonProperty) {
     }
     throw std::invalid_argument("Invalid action type: " + jsonProperty.dump());
 }
-Action::Category Action::getCategory(const nlohmann::json& jsonProperty) {
+Action::Category Action::loadCategory(const nlohmann::json& jsonProperty) {
     if (jsonProperty == "MAGIC") return Category::MAGIC;
     if (jsonProperty == "ABILITY") return Category::ABILITY;
     if (jsonProperty == "NULL_CATEGORY" || jsonProperty == "NULL") return Category::NULL_CATEGORY;
     throw std::invalid_argument("Invalid category: " + jsonProperty.dump());
 }
 
-Action::TargetStat Action::getTargetStat(const nlohmann::json& jsonProperty, const TargetStat defaultStat) {
+Action::TargetStat Action::loadTargetStat(const nlohmann::json& jsonProperty, const TargetStat defaultStat) {
     if (jsonProperty == "HP") return TargetStat::HP;
     if (jsonProperty == "MP") return TargetStat::MP;
     else return defaultStat;
 }
 
-Action::RecoveryType Action::getRecoveryType(const nlohmann::json& jsonProperty, const RecoveryType defaultType) {
+Action::RecoveryType Action::loadRecoveryType(const nlohmann::json& jsonProperty, const RecoveryType defaultType) {
     if (jsonProperty == "HP") return RecoveryType::HP;
     if (jsonProperty == "MP") return RecoveryType::MP;
     else return defaultType;
 }
 
 void Action::loadAttackProperties(const nlohmann::json& data) {
-    targetStat = getTargetStat(data.value("targetStat", "HP"), TargetStat::HP);
+    targetStat = loadTargetStat(data.value("targetStat", "HP"), TargetStat::HP);
     minDamage = data.value("minDamage", 1);
     maxDamage = data.value("maxDamage", minDamage);
     accuracy = std::clamp(data.value("accuracy", 100), 0, 100);
@@ -77,7 +77,7 @@ void Action::loadAttackProperties(const nlohmann::json& data) {
 void Action::loadRecoveryProperties(const nlohmann::json& data) {
     minRecovery = data.value("minRecovery", 1);
     maxRecovery = data.value("maxRecovery", minRecovery);
-    recoveryType = getRecoveryType(data.value("recoveryType", "HP"), RecoveryType::HP);
+    recoveryType = loadRecoveryType(data.value("recoveryType", "HP"), RecoveryType::HP);
 }
 
 bool MissChance(int accuracy) {
