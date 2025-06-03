@@ -80,16 +80,16 @@ void Action::loadRecoveryProperties(const nlohmann::json& data) {
     recoveryType = loadRecoveryType(data.value("recoveryType", "HP"), RecoveryType::HP);
 }
 
-bool MissChance(int accuracy) {
-    int rng = 1 + (rand() % 100);
-    if (rng > accuracy)
+bool MissChance(const int accuracy) {
+    if (const int rng = 1 + (rand() % 100); rng > accuracy) {
         return true;
+    }
     return false;
 }
-bool critChance(int critRate) {
-    int rng = 1 + (rand() % 100);
-    if (rng > critRate)
+bool critChance(const int critRate) {
+    if (const int rng = 1 + (rand() % 100); rng > critRate) {
         return true;
+    }
     return false;
 }
 
@@ -114,8 +114,7 @@ void Action::doAttack(Battler& user, Battler& target) const {
         user.reduceMp(mpCost);
         user.reduceHp(hpCost);
 
-        int hitTimes;
-        hitTimes = multiHitMin + (rand() % (multiHitMax - multiHitMin + 1));
+        const int hitTimes = multiHitMin + (rand() % (multiHitMax - multiHitMin + 1));
 
         for (int hit = 0; hit < hitTimes; hit++) {
             int damage = minDamage + (rand() % (maxDamage - minDamage + 1));
@@ -134,12 +133,12 @@ void Action::doAttack(Battler& user, Battler& target) const {
             }
 
             if (hpDrainPercent != 0) {
-                int recoverAmount = ((damage * hpDrainPercent) / 100);
+                const int recoverAmount = ((damage * hpDrainPercent) / 100);
                 user.recoverHp(recoverAmount);
                 std::cout << user.getName() << " stole " << recoverAmount << " HP!" << std::endl;
             }
             if (mpDrainPercent != 0) {
-                int recoverAmount = ((damage * mpDrainPercent) / 100);
+                const int recoverAmount = ((damage * mpDrainPercent) / 100);
                 user.recoverMp(recoverAmount);
                 std::cout << user.getName() << " stole " << recoverAmount << " MP!" << std::endl;
             }
@@ -148,7 +147,7 @@ void Action::doAttack(Battler& user, Battler& target) const {
 }
 
 void Action::doRecovery(Battler& user) const {
-    int amount = minRecovery + (rand() % (maxRecovery - minRecovery + 1));
+    const int amount = minRecovery + (rand() % (maxRecovery - minRecovery + 1));
     if (recoveryType == RecoveryType::HP) {
         user.recoverHp(amount);
         std::cout << user.getName() << " used " << name << " and recovered " << amount << " HP!";
