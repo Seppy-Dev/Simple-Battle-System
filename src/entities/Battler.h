@@ -22,7 +22,9 @@ public:
     [[nodiscard]] int getMaxHp() const {return maxHp;}
     [[nodiscard]] int getMaxMp() const {return maxMp;}
     [[nodiscard]] int getSpeed() const {return speed;}
-    [[nodiscard]] EnemyAI getAi() const {return battlerAi;}
+    [[nodiscard]] const EnemyAI& getAi() const {return battlerAi;}
+    [[nodiscard]] const std::unordered_map<std::string, Action>& getMagicActions() const {return magic;}
+    [[nodiscard]] const std::unordered_map<std::string, Action>& getAbilityActions() const {return abilities;}
 
     [[nodiscard]] bool isAlive() const {return (hp > 0);}
     [[nodiscard]] bool isFullHp() const {return (hp == maxHp);}
@@ -39,7 +41,8 @@ private:
     int hp = maxHp;
     int mp = maxMp;
     int speed = 10;
-    std::unordered_map<std::string, Action> actions;
+    std::unordered_map<std::string, Action> magic;
+    std::unordered_map<std::string, Action> abilities;
     EnemyAI battlerAi;
 };
 #endif //BATTLER_H
