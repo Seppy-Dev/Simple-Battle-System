@@ -67,9 +67,9 @@ private:
     int hpDrainPercent;
     int mpDrainPercent;
 
+    RecoveryType recoveryType;
     int minRecovery;
     int maxRecovery;
-    RecoveryType recoveryType;
 
     void loadAttackProperties(const nlohmann::json& data);
     void loadRecoveryProperties(const nlohmann::json& data);
