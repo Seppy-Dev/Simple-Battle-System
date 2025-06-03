@@ -5,11 +5,12 @@
 #ifndef BATTLEMENU_H
 #define BATTLEMENU_H
 
-#include "../entities/Battler.h"
-
 class BattleMenu {
 public:
     static void printStats();
+    static void mainBattleMenu();
+    static void magicMenu();
+    static void abilityMenu();
 };
 
 #endif //BATTLEMENU_H
