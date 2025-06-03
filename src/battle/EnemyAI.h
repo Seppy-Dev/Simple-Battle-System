@@ -10,7 +10,7 @@ class Action;
 
 class EnemyAI {
 public:
-    Action& EnemyTurn(Battler& battler);
+    static Action& chooseAction(Battler& battler);
 };
 
 
